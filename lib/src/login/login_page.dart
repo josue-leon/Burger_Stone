@@ -12,7 +12,7 @@ class _Login_pageState extends State<Login_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('APP BURGER STONE'),
+        child: Text('APP BURGER STONE ♥'),
       ),
     );
   }
