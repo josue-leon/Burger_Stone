@@ -1,4 +1,4 @@
-package com.BurgerStone.app_burger_stone
+package com.burger.app_burger_stone
 
 import io.flutter.embedding.android.FlutterActivity
 
