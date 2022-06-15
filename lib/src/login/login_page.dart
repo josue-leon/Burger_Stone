@@ -11,9 +11,25 @@ class _Login_pageState extends State<Login_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('APP BURGER STONE ♥'),
+      appBar: AppBar(
+        title:Text('APP BURGUER STONE ♥'),
       ),
+      body: Stack(
+        children: [
+          Container(
+            width: 150,
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              color: Colors.green
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top:60, left: 60),
+            child: Text('LOGIN'),
+          )
+        ],
+      )
     );
   }
 }
