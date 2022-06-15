@@ -1,4 +1,5 @@
 import 'package:app_burger_stone/src/login/login_page.dart';
+import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,6 +24,9 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'login' : (BuildContext context) => Login_page()
       },
+      theme: ThemeData(
+          primaryColor: MyColors.primaryColor
+      ),
     );
   }
 }
