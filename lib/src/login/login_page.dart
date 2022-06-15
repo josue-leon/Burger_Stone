@@ -1,5 +1,6 @@
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+//import 'package:lottie/lottie.dart';
 
 class Login_page extends StatefulWidget {
   const Login_page({Key key}) : super(key: key);
@@ -106,7 +107,7 @@ class _Login_pageState extends State<Login_page> {
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: ElevatedButton(
           onPressed: (){},
-          child: Text('Ingreasar'),
+          child: Text('Ingresar'),
         style: ElevatedButton.styleFrom(
           primary: MyColors.primaryColor,
           shape: RoundedRectangleBorder(
@@ -129,7 +130,7 @@ class _Login_pageState extends State<Login_page> {
           ),
         ),
         SizedBox(width: 10,),
-        Text('Registrate',
+        Text('Regístrate',
           style:
           TextStyle(
               fontWeight: FontWeight.bold,
@@ -150,6 +151,15 @@ class _Login_pageState extends State<Login_page> {
       ),
     );
   }
+  
+  /*Widget _lottieAnimation(){
+    return Lottie.asset(
+        'assets/json/delivery.json',
+        width: 350,
+        height: 200,
+        fit: BoxFit.fill
+    );
+  }*/
 
   Widget _textLogin(){
     return Text('LOGIN',
