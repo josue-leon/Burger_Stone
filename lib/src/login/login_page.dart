@@ -1,6 +1,6 @@
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
-//import 'package:lottie/lottie.dart';
+import 'package:lottie/lottie.dart';
 
 class Login_page extends StatefulWidget {
   const Login_page({Key key}) : super(key: key);
@@ -29,7 +29,8 @@ class _Login_pageState extends State<Login_page> {
             ),
             Column(
               children: [
-               _imageBanner(),
+               //_imageBanner(),
+                _lottieAnimation(),
                 _textFieldEmail(),
                 _textFieldPassword(),
                 _buttonLogin(),
@@ -151,15 +152,21 @@ class _Login_pageState extends State<Login_page> {
       ),
     );
   }
-  
-  /*Widget _lottieAnimation(){
-    return Lottie.asset(
-        'assets/json/delivery.json',
-        width: 350,
-        height: 200,
+
+  Widget _lottieAnimation(){
+    return Container (
+        margin: EdgeInsets.only(
+            top: 150,
+            bottom: MediaQuery.of(context).size.height * 0.10
+        ),
+        child: Lottie.asset(
+        'assets/json/hamburguer.json',
+        width: 250,
+        height: 300,
         fit: BoxFit.fill
+        )
     );
-  }*/
+  }
 
   Widget _textLogin(){
     return Text('LOGIN',
