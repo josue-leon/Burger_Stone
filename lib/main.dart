@@ -1,4 +1,5 @@
 import 'package:app_burger_stone/src/login/login_page.dart';
+import 'package:app_burger_stone/src/register/register_page.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,8 @@ class _MyAppState extends State<MyApp> {
       initialRoute: 'login',
       // Ruta
       routes: {
-        'login' : (BuildContext context) => Login_page()
+        'login' : (BuildContext context) => Login_page(),
+        'register' : (BuildContext context) =>   RegisterPage(),//ruta a la pantalla de registro
       },
       theme: ThemeData(
           fontFamily: 'Sans',

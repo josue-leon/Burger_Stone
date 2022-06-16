@@ -1,5 +1,7 @@
 import 'package:app_burger_stone/src/utils/my_colors.dart';
+import 'package:app_burger_stone/src/login/login_controller.dart';//importamos el controlador
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 
 class Login_page extends StatefulWidget {
@@ -10,8 +12,32 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
+
+  //llamamos a nuestro archivo controller
+
+  LoginController _con = new LoginController();//instanciamos la clase del controlador login
+
+
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {//se ejecuta cuando abrimos el page
+    // TODO: implement initState
+    super.initState();
+
+
+    //metodo para inicializar los controladores
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp){
+
+      _con.init(context);
+    });
+  }
+  @override
+  Widget build(BuildContext context) {//metodo que ejecuta todas las vistas
+
+
+
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -131,11 +157,18 @@ class _Login_pageState extends State<Login_page> {
           ),
         ),
         SizedBox(width: 10,),
-        Text('Regístrate',
-          style:
-          TextStyle(
-              fontWeight: FontWeight.bold,
-              color: MyColors.primaryColor
+        GestureDetector(//envuelve a la etiqueta
+          onTap:_con.goToRegisterPage,//similar al evento onclick cuando el usuario de click llamamos al controlador
+
+
+          child: Text(
+
+            'Regístrate',
+            style:
+            TextStyle(
+                fontWeight: FontWeight.bold,
+                color: MyColors.primaryColor
+            ),
           ),
         )
       ],
