@@ -53,15 +53,17 @@ class _Login_pageState extends State<Login_page> {
                 left: 25,
                 child: _textLogin()
             ),
-            Column(
-              children: [
-               //_imageBanner(),
-                _lottieAnimation(),
-                _textFieldEmail(),
-                _textFieldPassword(),
-                _buttonLogin(),
-                _textDontHaveAccount()
-              ],
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                 //_imageBanner(),
+                  _lottieAnimation(),
+                  _textFieldEmail(),
+                  _textFieldPassword(),
+                  _buttonLogin(),
+                  _textDontHaveAccount()
+                ],
+              ),
             ),
           ],
         ),
@@ -69,6 +71,9 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+  //elementos de lainterfaz
+
+  //Imagen - Logo
   Widget _imageBanner(){
     return Container(
       margin: EdgeInsets.only(
@@ -82,6 +87,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+ //Cuadro de texto "input" Email
   Widget _textFieldEmail(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -105,6 +111,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+  //Cuadro de texto "Input" Contrseña
   Widget _textFieldPassword(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -146,6 +153,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+  //texto No tienes una cuenta
   Widget _textDontHaveAccount(){
     return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -175,6 +183,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+  //forma circular parte superior
   Widget _CircleLogin(){
     return Container(
       width: 230,
@@ -186,6 +195,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+  //Animacion
   Widget _lottieAnimation(){
     return Container (
         margin: EdgeInsets.only(
@@ -201,6 +211,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
+  //texto "login"
   Widget _textLogin(){
     return Text('LOGIN',
       style: TextStyle(
