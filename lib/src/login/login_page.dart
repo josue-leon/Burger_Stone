@@ -162,6 +162,7 @@ class _Login_pageState extends State<Login_page> {
 
 
           child: Text(
+
             'Regístrate',
             style:
             TextStyle(
