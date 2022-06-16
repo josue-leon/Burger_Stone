@@ -46,12 +46,12 @@ class _Login_pageState extends State<Login_page> {
   Widget _imageBanner(){
     return Container(
       margin: EdgeInsets.only(
-          top: 120,
-          bottom: MediaQuery.of(context).size.height * 0.22
+          top: 110,
+          bottom: MediaQuery.of(context).size.height * 0.2
       ),
       child: Image.asset('assets/img/delivery.png',
         width: 200,
-        height: 200,
+        height: 180,
       ),
     );
   }
@@ -67,7 +67,7 @@ class _Login_pageState extends State<Login_page> {
         decoration: InputDecoration(
             hintText: 'Correo electrónico',
             hintStyle: TextStyle(
-              color: MyColors.primaryColorDark
+              color: MyColors.primaryColor
             ),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
@@ -90,7 +90,7 @@ class _Login_pageState extends State<Login_page> {
         decoration: InputDecoration(
             hintText: 'Contraseña',
             hintStyle: TextStyle(
-                color: MyColors.primaryColorDark
+                color: MyColors.primaryColor
             ),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),

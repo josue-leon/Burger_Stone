@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
         'login' : (BuildContext context) => Login_page()
       },
       theme: ThemeData(
-          fontFamily: 'Sans',
+          fontFamily: 'Roboto',
           primaryColor: MyColors.primaryColor
       ),
     );
