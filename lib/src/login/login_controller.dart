@@ -1,5 +1,5 @@
 /*este es el controlador para manejar toda la parte
-logica de la pantalla*/
+logica de la pantalla  */
 
 import 'package:flutter/material.dart';//paquete de matirial
 
