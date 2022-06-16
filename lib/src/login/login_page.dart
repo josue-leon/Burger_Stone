@@ -17,27 +17,17 @@ class _Login_pageState extends State<Login_page> {
 
   LoginController _con = new LoginController();//instanciamos la clase del controlador login
 
-
-
   @override
   void initState() {//se ejecuta cuando abrimos el page
     // TODO: implement initState
     super.initState();
-
-
     //metodo para inicializar los controladores
-
     SchedulerBinding.instance.addPostFrameCallback((timeStamp){
-
       _con.init(context);
     });
   }
   @override
   Widget build(BuildContext context) {//metodo que ejecuta todas las vistas
-
-
-
-
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -96,6 +86,8 @@ class _Login_pageState extends State<Login_page> {
         borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.emailController,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Correo electrónico',
             hintStyle: TextStyle(
@@ -120,6 +112,8 @@ class _Login_pageState extends State<Login_page> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.passwordController,
+        obscureText: true,
         decoration: InputDecoration(
             hintText: 'Contraseña',
             hintStyle: TextStyle(
@@ -140,7 +134,7 @@ class _Login_pageState extends State<Login_page> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: _con.login,
           child: Text('Ingresar'),
         style: ElevatedButton.styleFrom(
           primary: MyColors.primaryColor,

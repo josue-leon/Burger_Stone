@@ -1,5 +1,7 @@
+import 'package:app_burger_stone/src/register/register_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key key}) : super(key: key);
@@ -9,6 +11,16 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  RegisterController _con = new RegisterController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _con.init(context);
+    });
+  }
   @override
 
   Widget build(BuildContext context) {
@@ -103,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: ElevatedButton(
-        onPressed: (){},
+        onPressed: _con.register,
         child: Text('Registrar'),
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
@@ -116,28 +128,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _textFieldPassword(){
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-      decoration: BoxDecoration(
-          color: MyColors.primaryOpacityColor,
-          borderRadius: BorderRadius.circular(12)
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-            hintText: 'Contraseña',
-            hintStyle: TextStyle(
-                color: MyColors.primaryColor
-            ),
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.all(15),
-            prefixIcon: Icon(
-              Icons.lock,
-              color: MyColors.primaryColor ,)
-        ) ,
-      ),
-    );
-  }
 
   Widget _textFieldEmail(){
     return Container(
@@ -147,6 +137,8 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.emailController,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
             hintStyle: TextStyle(
@@ -170,6 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.nameController,
         decoration: InputDecoration(
             hintText: 'Nombre',
             hintStyle: TextStyle(
@@ -193,6 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.lastnameController,
         decoration: InputDecoration(
             hintText: 'Apellido',
             hintStyle: TextStyle(
@@ -216,6 +210,8 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.phoneController,
+        keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Teléfono',
             hintStyle: TextStyle(
@@ -231,6 +227,31 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Widget _textFieldPassword(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(12)
+      ),
+      child: TextField(
+        controller: _con.passwordController,
+        obscureText: true,
+        decoration: InputDecoration(
+            hintText: 'Contraseña',
+            hintStyle: TextStyle(
+                color: MyColors.primaryColor
+            ),
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            prefixIcon: Icon(
+              Icons.lock,
+              color: MyColors.primaryColor ,)
+        ) ,
+      ),
+    );
+  }
+
   Widget _textFieldConfirmPassword(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -239,6 +260,8 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        controller: _con.confirmPasswordController,
+        obscureText: true,
         decoration: InputDecoration(
             hintText: 'Confirmar contraseña',
             hintStyle: TextStyle(
