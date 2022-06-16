@@ -20,11 +20,12 @@ class _MyAppState extends State<MyApp> {
       title: 'Delivery App Burger Stone',
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
-      // Rutas
+      // Ruta
       routes: {
         'login' : (BuildContext context) => Login_page()
       },
       theme: ThemeData(
+          fontFamily: 'Sans',
           primaryColor: MyColors.primaryColor
       ),
     );

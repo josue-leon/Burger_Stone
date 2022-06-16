@@ -173,7 +173,8 @@ class _Login_pageState extends State<Login_page> {
       style: TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
-        fontSize: 22
+        fontSize: 22,
+        fontFamily: 'NimbusSans'
     ),
     );
   }

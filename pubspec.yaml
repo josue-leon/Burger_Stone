@@ -54,6 +54,29 @@ flutter:
     - assets/img/
     - assets/json/
 
+#TIPOS DE FUENTES
+
+  fonts:
+    - family: NimbusSans
+      fonts:
+        - asset: assets/fonts/NimbusSans/NimbusSanL-Reg.otf
+
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico/Pacifico.ttf
+
+    - family: OneDay
+      fonts:
+        - asset: assets/fonts/OneDay/ONEDAY.ttf
+
+    - family: Sans
+      fonts:
+        - asset: assets/fonts/Sans/OstrichSans-Heavy.otf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
