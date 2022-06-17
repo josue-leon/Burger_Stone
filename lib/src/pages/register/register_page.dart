@@ -147,7 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             prefixIcon: Icon(
-              Icons.email,
+              Icons.assignment_ind_rounded,
               color: MyColors.primaryColor ,)
         ) ,
       ),

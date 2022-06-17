@@ -1,3 +1,4 @@
+import 'package:app_burger_stone/src/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/provider/users_provider.dart';
@@ -31,6 +32,21 @@ class RegisterController{
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
 
+    if (cedula.isEmpty || email.isEmpty || nombre.isEmpty || apellido.isEmpty || telefono.isEmpty || password.isEmpty || confirmPassword.isEmpty){
+        MySnackbar.show(context, 'Debes llenar todos los campos para registrarte');
+        return;
+    }
+
+    if (confirmPassword != password){
+        MySnackbar.show(context, 'Las contraseñas no son iguales');
+        return;
+    }
+
+    if (password.length<6){
+      MySnackbar.show(context, 'La contraseña debe contener al menos 6 caracteres');
+      return;
+    }
+
     Usuario usuario = new Usuario(
       cedula: cedula,
       email: email,
@@ -41,6 +57,9 @@ class RegisterController{
     );
     
     ResponseApi responseApi = await usersProvider.create(usuario);
+    MySnackbar.show(context, responseApi.mensaje);
+
+
 
     print ('RESPUESTA: ${responseApi.toJson()}');
     print(cedula);
