@@ -1,5 +1,5 @@
 import 'package:app_burger_stone/src/utils/my_colors.dart';
-import 'package:app_burger_stone/src/login/login_controller.dart';//importamos el controlador
+import 'package:app_burger_stone/src/pages/login/login_controller.dart';//importamos el controlador
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';

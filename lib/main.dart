@@ -1,5 +1,5 @@
-import 'package:app_burger_stone/src/login/login_page.dart';
-import 'package:app_burger_stone/src/register/register_page.dart';
+import 'package:app_burger_stone/src/pages/login/login_page.dart';
+import 'package:app_burger_stone/src/pages/register/register_page.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 

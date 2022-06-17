@@ -1,4 +1,4 @@
-import 'package:app_burger_stone/src/register/register_controller.dart';
+import 'package:app_burger_stone/src/pages/register/register_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -54,10 +54,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     _imageUser(),
                     SizedBox(height: 30,),
+                    _textFieldCedula(),
                     _textFieldEmail(),
-                    _textFieldName(),
-                    _textFieldPLastName(),
-                    _textFieldPhone(),
+                    _textFieldNombre(),
+                    _textFieldApellido(),
+                    _textFieldTelefono(),
                     _textFieldPassword(),
                     _textFieldConfirmPassword(),
                     _buttonRegister()
@@ -128,6 +129,30 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Widget _textFieldCedula(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(12)
+      ),
+      child: TextField(
+        controller: _con.cedulaController,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+            hintText: 'Cédula',
+            hintStyle: TextStyle(
+                color: MyColors.primaryColor
+            ),
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            prefixIcon: Icon(
+              Icons.email,
+              color: MyColors.primaryColor ,)
+        ) ,
+      ),
+    );
+  }
 
   Widget _textFieldEmail(){
     return Container(
@@ -154,7 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _textFieldName(){
+  Widget _textFieldNombre(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
       decoration: BoxDecoration(
@@ -162,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: _con.nameController,
+        controller: _con.nombreController,
         decoration: InputDecoration(
             hintText: 'Nombre',
             hintStyle: TextStyle(
@@ -178,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _textFieldPLastName(){
+  Widget _textFieldApellido(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
       decoration: BoxDecoration(
@@ -186,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: _con.lastnameController,
+        controller: _con.apellidoController,
         decoration: InputDecoration(
             hintText: 'Apellido',
             hintStyle: TextStyle(
@@ -202,7 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _textFieldPhone(){
+  Widget _textFieldTelefono(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
       decoration: BoxDecoration(
@@ -210,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: _con.phoneController,
+        controller: _con.telefonoController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Teléfono',
