@@ -8,7 +8,7 @@ String usuarioToJson(Usuario data) => json.encode(data.toJson());
 
 class Usuario {
 
-  int id;
+  dynamic id;//se le cambio a tipo dynamic está recibiendo es inconsistente. Algunos datos son int, algunos son cadenas.
   String cedula;
   String email;
   String nombre;

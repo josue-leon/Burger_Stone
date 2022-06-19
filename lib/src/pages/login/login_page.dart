@@ -27,7 +27,7 @@ class _Login_pageState extends State<Login_page> {
     });
   }
   @override
-  Widget build(BuildContext context) {//metodo que ejecuta todas las vistas
+  Widget build(BuildContext context) {//metodo que ejecuta todas las vistas codigo q se muestra en la pantalla
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -143,7 +143,7 @@ class _Login_pageState extends State<Login_page> {
           ),
           padding: EdgeInsets.symmetric(vertical: 15)
         ),
-      ),
+      ),//crea botones
     );
   }
 

@@ -1,10 +1,13 @@
 /*este es el controlador para manejar toda la parte
 lógica de la pantallas */
 
+import 'package:app_burger_stone/src/models/usuario.dart';//paquete usuario
 import 'package:app_burger_stone/src/provider/users_provider.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:app_burger_stone/src/utils/my_snackbar.dart';
+import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';//paquete de matirial
+
 
 class LoginController {
 
@@ -13,25 +16,61 @@ class LoginController {
   TextEditingController passwordController = new TextEditingController();
 
   UsersProvider usersProvider = new UsersProvider();
+  SharedPref _sharedPref = new SharedPref();
+
+
 
   Future init(BuildContext context) async
   {
     //Método  constructor de nuestra clase
     this.context = context;
     await usersProvider.init(context);
+
+   Usuario usuario = Usuario.fromJson(await _sharedPref.read('usuario')??{});
+/*
+  ?
+  es lo mismo poner if(usuario !=null){
+    if(usuario.sesionToken !=null){
+       Navigator.pushNamedAndRemoveUntil(context,'client/products/list', (route) => false);
+   */
+    //quitando esta linea de codigo me muestra la panatlla principal
+    //como ya esta iniciado session m muestra la pagina de lista de productos
+
+     print('Usuario: ${usuario.toJson()}');
+
+    if (usuario?.sessionToken != null)//si existe el sessionToken en shared preferences
+      {
+
+        Navigator.pushNamedAndRemoveUntil(context,'client/products/list', (route) => false);
+    }
+  }
+//quitar despues
+    void goToRegisterPage() {
+      //metodo que lleva a la pantalla de registro
+      Navigator.pushNamed(context,
+          'register'); //ruta a donde vamos a navegar en este caso al register
+    }
+
+    void login() async
+    {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+      ResponseApi responseApi = await usersProvider.login(email, password);
+
+      print('Respuesta object: ${responseApi}');
+      print('Respuesta: ${responseApi.toJson()}');
+
+      if (responseApi.success) {
+        Usuario usuario = Usuario.fromJson(responseApi.data); //mapa de valores
+        _sharedPref.save('usuario', usuario.toJson()); //almacenaria al usuario
+        Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (
+            route) => false); //nos lleva a una ruta
+
+      }
+      else {
+        MySnackbar.show(context, responseApi.message);
+      }
+
+    }
   }
 
-  void goToRegisterPage(){//metodo que lleva a la pantalla de registro
-    Navigator.pushNamed(context, 'register');//ruta a donde vamos a navegar en este caso al register
-  }
-
-  void login() async
-  {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
-    ResponseApi responseApi = await usersProvider.login(email, password);
-    print('Respuesta object: ${responseApi}');
-    print('Respuesta: ${responseApi.toJson()}');
-    MySnackbar.show(context, responseApi.message);
-  }
-}
