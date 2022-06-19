@@ -19,6 +19,8 @@ class UsersProvider
   {
     this.context = context;
   }
+
+  // Para registrar un usuario
   Future <ResponseApi> create(Usuario usuario) async
   {
     // Si hay error
@@ -27,6 +29,32 @@ class UsersProvider
       // Si ejecuta bien
       Uri url = Uri.http(_url, '$_api/create');
       String bodyParams = json.encode(usuario);
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+      };
+      final res = await http.post(url, headers: headers, body: bodyParams);
+      final data = json.decode(res.body);
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+      return responseApi;
+
+    }
+    catch(e)
+    {
+      print ('Error: $e');
+      return null;
+    }
+  }
+
+  // Para el inicio de sesión
+  Future <ResponseApi> login (String email, String password) async
+  {
+    try
+    {
+      Uri url = Uri.http(_url, '$_api/login');
+      String bodyParams = json.encode({
+        'email': email,
+        'password': password
+      });
       Map<String, String> headers = {
         'Content-type': 'application/json',
       };

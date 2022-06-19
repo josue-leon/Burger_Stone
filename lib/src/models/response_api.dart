@@ -7,20 +7,20 @@ String responseApiToJson(ResponseApi data) => json.encode(data.toJson());
 // Para el error
 class ResponseApi
 {
-  String mensaje;
+  String message;
   String error;
   bool success;
   dynamic data;
 
   ResponseApi({
-    this.mensaje,
+    this.message,
     this.error,
     this.success,
   });
 
   ResponseApi.fromJson(Map<String, dynamic> json)
   {
-    mensaje = json["mensaje"];
+    message = json["message"];
     error = json["error"];
     success = json["success"];
 
@@ -34,8 +34,9 @@ class ResponseApi
     }
   }
   Map<String, dynamic> toJson() => {
-    "mensaje": mensaje,
+    "message": message,
     "error": error,
     "success": success,
+    "data": data
   };
 }
