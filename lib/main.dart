@@ -1,6 +1,8 @@
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_page.dart';
+import 'package:app_burger_stone/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:app_burger_stone/src/pages/login/login_page.dart';
 import 'package:app_burger_stone/src/pages/register/register_page.dart';
+import 'package:app_burger_stone/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +29,10 @@ class _MyAppState extends State<MyApp> {
       routes: {//colocamos todas las rutas que vamos creando
         'login' : (BuildContext context) => Login_page(),
         'register' : (BuildContext context) =>   RegisterPage(),//ruta a la pantalla de registro
-        'client/products/list' : (BuildContext context) =>   ClientProductsListPage()//ruta para listar productos
+        'client/products/list' : (BuildContext context) =>   ClientProductsListPage(),//ruta para listar productos
+        'restaurant/orders/list' : (BuildContext context) =>   RestaurantOrdersListPage(),//ruta para listar productos
+        'delivery/orders/list' : (BuildContext context) =>   DeliveryOrdersListPage()//ruta para listar productos
+
       },
       //para establecer el color
       theme: ThemeData(

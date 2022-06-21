@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:app_burger_stone/src/models/rol.dart';
+
 // Creación de la clase usuario para el registro de usuario y para almacenar los datos en la db
 
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
@@ -17,6 +19,7 @@ class Usuario {
   String imagen;
   String password;
   String sessionToken;
+  List<Rol> roles = [];
 
   // Constructor de la clase
   Usuario({
@@ -29,11 +32,12 @@ class Usuario {
     this.imagen,
     this.password,
     this.sessionToken,
+    this.roles
   });
 
   // Mapa de valores Json que retorna un objeto usuario
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
-    id: json["id"],
+    id: json["id"] is int ? json['id'].toString() : json["id"],
     cedula: json["cedula"],
     email: json["email"],
     nombre: json["nombre"],
@@ -42,6 +46,7 @@ class Usuario {
     imagen: json["imagen"],
     password: json["password"],
     sessionToken: json["session_token"],
+    roles: json["roles"] == null ? [] : List<Rol>.from(json['roles'].map((model) => Rol.fromJson(model))) ?? [],
   );
 
   // Objeto Json que toma los valores que se ingresa y lo transforma a json
@@ -55,5 +60,6 @@ class Usuario {
     "imagen": imagen,
     "password": password,
     "session_token": sessionToken,
+    "roles": roles,
   };
 }
