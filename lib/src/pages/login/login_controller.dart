@@ -40,8 +40,16 @@ class LoginController {
 
     if (usuario?.sessionToken != null)//si existe el sessionToken en shared preferences
       {
-      Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (
-          route) => false); //nos lleva a una ruta
+      print('usuario logueado:  ${usuario.toJson()}');
+      if(usuario.roles.length > 1){ //IDENTIFICA SI UN USUARIO TIENE MAS DE UN ROL
+        Navigator.pushNamedAndRemoveUntil(context, 'roles', (
+            route) => false); //NOS LLEVA A LA RUTA DE SELECCION DE ROLES
+      } else{
+        Navigator.pushNamedAndRemoveUntil(context, usuario.roles[0].ruta, (
+            route) => false); //NOS LLEVA A LA RUTA DEL ROL POR DEFECTO DEL USUARIO
+      }
+      //Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (
+          //route) => false); //nos lleva a una ruta
     }
   }
 //quitar despues
