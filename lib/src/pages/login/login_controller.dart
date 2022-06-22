@@ -36,12 +36,12 @@ class LoginController {
     //quitando esta linea de codigo me muestra la panatlla principal
     //como ya esta iniciado session m muestra la pagina de lista de productos
 
-     print('Usuario: ${usuario.toJson()}');
+    //print('Usuario: ${usuario.toJson()}');
 
     if (usuario?.sessionToken != null)//si existe el sessionToken en shared preferences
       {
-
-        Navigator.pushNamedAndRemoveUntil(context,'client/products/list', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (
+          route) => false); //nos lleva a una ruta
     }
   }
 //quitar despues
@@ -60,12 +60,21 @@ class LoginController {
       print('Respuesta object: ${responseApi}');
       print('Respuesta: ${responseApi.toJson()}');
 
+      //EL USUARIO INGRESO CORRECTAMENTE
       if (responseApi.success) {
         Usuario usuario = Usuario.fromJson(responseApi.data); //mapa de valores
         _sharedPref.save('usuario', usuario.toJson()); //almacenaria al usuario
-        Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (
-            route) => false); //nos lleva a una ruta
 
+          print('usuario logueado:  ${usuario.toJson()}');
+          if(usuario.roles.length > 1){ //IDENTIFICA SI UN USUARIO TIENE MAS DE UN ROL
+            Navigator.pushNamedAndRemoveUntil(context, 'roles', (
+                route) => false); //NOS LLEVA A LA RUTA DE SELECCION DE ROLES
+          } else{
+            Navigator.pushNamedAndRemoveUntil(context, usuario.roles[0].ruta, (
+                route) => false); //NOS LLEVA A LA RUTA DEL ROL POR DEFECTO DEL USUARIO
+          }
+        //Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (
+            //route) => false); //nos lleva a una ruta
       }
       else {
         MySnackbar.show(context, responseApi.message);
