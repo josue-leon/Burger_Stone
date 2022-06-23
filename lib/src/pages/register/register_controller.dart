@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:app_burger_stone/src/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/provider/users_provider.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterController{
 
@@ -14,11 +17,17 @@ class RegisterController{
   TextEditingController telefonoController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   TextEditingController confirmPasswordController = new TextEditingController();
+
   UsersProvider usersProvider = new UsersProvider();
 
-  Future init (BuildContext context)
+  PickedFile pickedFile;
+  File imageFile;
+  Function refresh;
+
+  Future init (BuildContext context, Function refresh)
   {
     this.context = context;
+    this.refresh = refresh;
     usersProvider.init(context);
   }
 
@@ -66,13 +75,46 @@ class RegisterController{
     }
 
     print ('RESPUESTA: ${responseApi.toJson()}');
-    print(cedula);
-    print(email);
-    print(nombre);
-    print(apellido);
-    print(telefono);
-    print(password);
-    print(confirmPassword);
+  }
 
+  Future selectImage(ImageSource imageSource) async{
+    pickedFile = await ImagePicker().getImage(source: imageSource);
+    if (pickedFile != null)
+    {
+      imageFile = File(pickedFile.path);
+    }
+    Navigator.pop(context);
+    refresh();
+  }
+
+  void showAlertDialog(){
+    Widget galleryButton = ElevatedButton(
+      onPressed: () {
+        selectImage(ImageSource.gallery);
+      },
+      child: Text('GALERIA')
+    );
+
+    Widget cameraButton = ElevatedButton(
+        onPressed: () {
+          selectImage(ImageSource.camera);
+        },
+        child: Text('CÁMARA')
+    );
+
+    AlertDialog alertDialog = AlertDialog(
+      title: Text('Seleccione su imagen'),
+      actions: [
+        galleryButton,
+        cameraButton
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
   }
 }

@@ -18,7 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context);
+      _con.init(context, refresh);
     });
   }
   @override
@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    _imageUser(),
+                    _imagenUsuario(),
                     SizedBox(height: 30,),
                     _textFieldCedula(),
                     _textFieldEmail(),
@@ -73,12 +73,16 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _imageUser(){
-    return CircleAvatar(
-      backgroundImage:
-        AssetImage('assets/img/user_profile_2.png'),
+  Widget _imagenUsuario(){
+    return GestureDetector(
+      onTap: _con.showAlertDialog,
+      child: CircleAvatar(
+        backgroundImage: _con.imageFile != null
+            ? FileImage(_con.imageFile)
+            : AssetImage('assets/img/user_profile_2.png'),
         radius: 60,
         backgroundColor: Colors.grey[200],
+      ),
     );
   }
 
@@ -300,6 +304,13 @@ class _RegisterPageState extends State<RegisterPage> {
         ) ,
       ),
     );
+  }
+
+  // Refrescar la pantalla
+  void refresh(){
+    setState(() {
+
+    });
   }
 
 }
