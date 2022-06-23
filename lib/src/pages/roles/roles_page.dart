@@ -49,25 +49,25 @@ class _RolesPageState extends State<RolesPage> {
   Widget _cardRol(Rol rol){
     return GestureDetector(
       onTap: (){
-        _con.goToPage(rol.ruta);
+        _con.goToPage(rol.ruta);//meto de rol controller
       },
       child: Column(
         children: [
           Container(
             height: 100,
             child: FadeInImage(
-              image: rol.imagen != null
-                  ? NetworkImage(rol.imagen)
-                  : AssetImage('assets/img/no-image.png'),
+              image: rol.imagen != null//si tiene imgen en la data
+                  ? NetworkImage(rol.imagen)//url de la imagen
+                  : AssetImage('assets/img/no-image.png'),// en caso de que con cargue la imagen
               fit: BoxFit.contain,
-              fadeInDuration: Duration(milliseconds: 50),
-              placeholder: AssetImage('assets/img/no-image.png'),
+              fadeInDuration: Duration(milliseconds: 50),//animacion
+              placeholder: AssetImage('assets/img/no-image.png'),//mostrar imagen dedecto
 
             ),
           ),
           SizedBox(height: 15),
           Text(
-            rol.nombre ?? '',
+            rol.nombre ?? '',//muestra texto vacio
             style: TextStyle(
               fontSize: 16,
               color: Colors.black

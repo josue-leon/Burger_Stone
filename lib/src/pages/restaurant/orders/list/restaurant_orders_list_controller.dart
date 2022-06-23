@@ -2,7 +2,8 @@ import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 
 
-class ClientProductsListController {
+class RestaurantOrdersListController {
+
 
   BuildContext context;
   SharedPref _sharedPref = new SharedPref();
