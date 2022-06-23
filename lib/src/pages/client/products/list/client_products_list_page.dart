@@ -21,14 +21,15 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context); //inicializar nuestro controlador
+      _con.init(context, refresh); //inicializar nuestro controlador
     });
   }
 
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold( //esqueleto de la aplicacion
+  Widget build(BuildContext context)
+  {
+    return Scaffold( //esqueleto de la aplicación
       key: _con.key,
       appBar: AppBar(
         leading: _menuDrawer(),
@@ -39,12 +40,13 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
         //Parte de Cerrar sesión
         child: ElevatedButton(
           onPressed: _con.logout,
-          child: Text('Cerrar sesion'),
+          child: Text('Cerrar Sesión'),
         ),
       ),
     );
   }
-  Widget _menuDrawer(){
+  Widget _menuDrawer()
+  {
     return GestureDetector(
       onTap: _con.openDrawer,
       child: Container(
@@ -67,7 +69,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nombre de Usuario',
+                    // Si no tiene un nombre de usuario se muestra ''
+                    '${_con.usuario?.nombre ?? ''} ${_con.usuario?.apellido ?? ''}',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -75,8 +78,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     ),
                     maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
                   ),
+
                   Text(
-                    'Email',
+                    _con.usuario?.email ?? '',
                     style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey[200],
@@ -87,7 +91,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                   ),
 
                   Text(
-                    'Teléfono',
+                    _con.usuario?.telefono ?? '',
                     style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey[200],
@@ -97,11 +101,14 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
                   ),
 
+                  // Imagen del usuario
                   Container(
                     height: 60,
                     margin: EdgeInsets.only(top:10),
                     child: FadeInImage(
-                      image: AssetImage('assets/img/no-image.png'),
+                      image: _con.usuario?.imagen != null
+                          ? NetworkImage(_con.usuario?.imagen)
+                          : AssetImage('assets/img/no-image.png'),
                       fit: BoxFit.contain,
                       fadeInDuration: Duration(milliseconds: 50),
                       placeholder:AssetImage('assets/img/no-image.png') ,//carga imagen x defecto
@@ -122,11 +129,13 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
 
           ),
 
+          _con.usuario != null ?
+          _con.usuario.roles.length > 1 ?
           ListTile(
+            onTap: _con.goToRoles,
             title: Text('Seleccionar Rol'),
             trailing: Icon(Icons.person_outline),
-
-          ),
+          ) : Container() : Container(),
           ListTile(
             onTap: _con.logout,
             title: Text('Cerrar sesión'),
@@ -136,5 +145,10 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
         ],
       ),
     );
+  }
+
+  // Refresh para que carguen los datos
+  void refresh() {
+    setState(() {}); // CTRL+S
   }
 }

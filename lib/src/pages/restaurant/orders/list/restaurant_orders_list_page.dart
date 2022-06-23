@@ -18,7 +18,7 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context);
+      _con.init(context, refresh);
     });
   }
 
@@ -58,7 +58,8 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nombre de Usuario',
+                    // Si no tiene un nombre de usuario se muestra ''
+                    '${_con.usuario?.nombre ?? ''} ${_con.usuario?.apellido ?? ''}',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -66,8 +67,9 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
                     ),
                     maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
                   ),
+
                   Text(
-                    'Email',
+                    _con.usuario?.email ?? '',
                     style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey[200],
@@ -78,7 +80,7 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
                   ),
 
                   Text(
-                    'Teléfono',
+                    _con.usuario?.telefono ?? '',
                     style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey[200],
@@ -88,11 +90,14 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
                     maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
                   ),
 
+                  // Imagen del usuario
                   Container(
                     height: 60,
                     margin: EdgeInsets.only(top:10),
                     child: FadeInImage(
-                      image: AssetImage('assets/img/no-image.png'),
+                      image: _con.usuario?.imagen != null
+                          ? NetworkImage(_con.usuario?.imagen)
+                          : AssetImage('assets/img/no-image.png'),
                       fit: BoxFit.contain,
                       fadeInDuration: Duration(milliseconds: 50),
                       placeholder:AssetImage('assets/img/no-image.png') ,//carga imagen x defecto
@@ -102,12 +107,15 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
                 ],
               )
           ),
-          
+
+          _con.usuario != null ?
+          _con.usuario.roles.length > 1 ?
           ListTile(
+            onTap: _con.goToRoles,
             title: Text('Seleccionar Rol'),
             trailing: Icon(Icons.person_outline),
+          ) : Container() : Container(),
 
-          ),
           ListTile(
             onTap: _con.logout,
             title: Text('Cerrar sesión'),
@@ -117,5 +125,10 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
         ],
       ),
     );
+  }
+
+  // Refresh para que carguen los datos
+  void refresh() {
+    setState(() {}); // CTRL+S
   }
 }
