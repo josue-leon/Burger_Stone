@@ -18,8 +18,6 @@ class LoginController {
   UsersProvider usersProvider = new UsersProvider();
   SharedPref _sharedPref = new SharedPref();
 
-
-
   Future init(BuildContext context) async
   {
     //Método  constructor de nuestra clase
@@ -64,6 +62,13 @@ class LoginController {
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
       ResponseApi responseApi = await usersProvider.login(email, password);
+
+      // Validar si un correo es válido
+      if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
+      {
+        MySnackbar.show(context, 'Ingrese un correo válido');
+        return;
+      }
 
       print('Respuesta object: ${responseApi}');
       print('Respuesta: ${responseApi.toJson()}');

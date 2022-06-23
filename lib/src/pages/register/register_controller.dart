@@ -45,6 +45,10 @@ class RegisterController{
         MySnackbar.show(context, 'Debes llenar todos los campos para registrarte');
         return;
     }
+    if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
+    {
+      MySnackbar.show(context, 'Please a valid Email');
+    }
 
     if (confirmPassword != password){
         MySnackbar.show(context, 'Las contraseñas no son iguales');
