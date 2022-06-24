@@ -2,6 +2,7 @@ import 'package:app_burger_stone/src/pages/register/register_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key key}) : super(key: key);
@@ -141,8 +142,11 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        inputFormatters: [
+          BlacklistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
+        ],
         controller: _con.cedulaController,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Cédula',
             hintStyle: TextStyle(
@@ -191,6 +195,9 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        inputFormatters: [
+          WhitelistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
+        ],
         controller: _con.nombreController,
         decoration: InputDecoration(
             hintText: 'Nombre',
@@ -215,6 +222,9 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        inputFormatters: [
+          WhitelistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
+        ],
         controller: _con.apellidoController,
         decoration: InputDecoration(
             hintText: 'Apellido',
@@ -239,6 +249,9 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
+        inputFormatters: [
+          BlacklistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
+        ],
         controller: _con.telefonoController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(

@@ -36,7 +36,6 @@ class UsersProvider
       final data = json.decode(res.body);
       ResponseApi responseApi = ResponseApi.fromJson(data);
       return responseApi;
-
     }
     catch(e)
     {
@@ -62,7 +61,6 @@ class UsersProvider
       final data = json.decode(res.body);
       ResponseApi responseApi = ResponseApi.fromJson(data);
       return responseApi;
-
     }
     catch(e)
     {
@@ -70,4 +68,30 @@ class UsersProvider
       return null;
     }
   }
+/*
+  Future <ResponseApi> validarCI (String cedula) async{
+    try
+    {
+      Uri url = Uri.http(_url, '$_api/validateCI');
+      String bodyParams = json.encode({
+        'cedula': cedula,
+      });
+
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+      };
+
+      final res = await http.post(url, headers: headers, body: bodyParams);
+      final data = json.decode(res.body);
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+      return responseApi;
+    }
+    catch (e)
+    {
+      print ('Error: $e');
+      return null;
+    }
+
+  }
+*/
 }

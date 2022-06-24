@@ -3,9 +3,8 @@ class Environment {
   static const String BURGER_STONE = "192.168.9.1:3000";
 }
 
-/*
 //Conexión PC Andrea
-class Environment {
+/*class Environment {
   static const String BURGER_STONE = "192.168.100.15:3000";
-}
-*/
+}*/
+
