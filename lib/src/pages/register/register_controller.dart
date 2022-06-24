@@ -62,11 +62,7 @@ class RegisterController{
 
     if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
     {
-<<<<<<< HEAD
-      MySnackbar.show(context, 'Ingrese un correo válido');
-=======
       MySnackbar.show(context, 'Ingrese un email válido');
->>>>>>> 18ba7514805732d079bff54a26c8d0934168586b
       return;
     }
 
