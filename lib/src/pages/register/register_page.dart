@@ -148,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
         controller: _con.cedulaController,
         onChanged: (text) {
-          if(text.length < 10){
+          if(text.length > 10){
             MySnackbar.show(context, 'La cédula debe tener 10 digitos');
           }
         },
@@ -206,7 +206,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
         controller: _con.nombreController,
         onChanged: (text) {
-          if(text.length < 3){
+          if(text.length == 3){
             MySnackbar.show(context, 'El nombre debe tener al menos 3 letras');
           }
         },
@@ -238,7 +238,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
         controller: _con.apellidoController,
         onChanged: (text) {
-          if(text.length < 3){
+          if(text.length == 3){
             MySnackbar.show(context, 'El apellido debe tener al menos 3 letras');
           }
         },
@@ -270,7 +270,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
         controller: _con.telefonoController,
         onChanged: (text) {
-          if(text.length < 10){
+          if(text.length > 10){
             MySnackbar.show(context, 'El teléfono debe tener 10 digitos');
           }
         },
