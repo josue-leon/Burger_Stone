@@ -62,4 +62,5 @@ class Usuario {
     "session_token": sessionToken,
     "roles": roles,
   };
+
 }
