@@ -43,18 +43,18 @@ class RegisterController{
 
 
     if (cedula.isEmpty || email.isEmpty || nombre.isEmpty || apellido.isEmpty || telefono.isEmpty || password.isEmpty || confirmPassword.isEmpty){
-        MySnackbar.show(context, 'Debes llenar todos los campos para registrarte');
+        MySnackbar.show(context, 'Llene todos los campos para registrarse');
         return;
     }
 
     if(ValidarCI(cedula) == false){
-      MySnackbar.show(context, 'La cedula ingresada no es valida');
+      MySnackbar.show(context, 'La cédula ingresada no es válida');
       return;
     }
 
     if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
     {
-      MySnackbar.show(context, 'Please a valid Email');
+      MySnackbar.show(context, 'Ingrese un email válido');
     }
 
     if (confirmPassword != password){
@@ -81,9 +81,6 @@ class RegisterController{
 
     ResponseApi responseApi = await usersProvider.create(usuario);
     MySnackbar.show(context, responseApi.message);
-
-
-
 
     if(responseApi.success){
       Future.delayed(Duration(seconds: 3), (){
