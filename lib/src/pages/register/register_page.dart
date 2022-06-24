@@ -3,6 +3,7 @@ import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:app_burger_stone/src/utils/my_snackbar.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key key}) : super(key: key);
@@ -146,6 +147,11 @@ class _RegisterPageState extends State<RegisterPage> {
           BlacklistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
         ],
         controller: _con.cedulaController,
+        onChanged: (text) {
+          if(text.length > 10){
+            MySnackbar.show(context, 'La cédula debe tener 10 digitos');
+          }
+        },
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Cédula',
@@ -253,6 +259,11 @@ class _RegisterPageState extends State<RegisterPage> {
           BlacklistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
         ],
         controller: _con.telefonoController,
+        onChanged: (text) {
+          if(text.length > 10){
+            MySnackbar.show(context, 'El teléfono debe tener 10 digitos');
+          }
+        },
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Teléfono',

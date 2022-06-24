@@ -61,7 +61,7 @@ class RegisterController{
 
     //expresion regular para validar apellido
 
-    if(!RegExp(r"^[a-zA-Z]{3,10}$").hasMatch(apellido))
+    if(!RegExp(r"^[a-zA-Z]{3,15}$").hasMatch(apellido))
     {
       MySnackbar.show(context, 'El apellido ingresado no es válido');
       return;
