@@ -47,7 +47,8 @@ class RegisterController{
     }
     if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
     {
-      MySnackbar.show(context, 'Please a valid Email');
+      MySnackbar.show(context, 'Ingrese un correo válido');
+      return;
     }
 
     if (confirmPassword != password){

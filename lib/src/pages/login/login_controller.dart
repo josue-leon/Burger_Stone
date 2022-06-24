@@ -25,16 +25,6 @@ class LoginController {
     await usersProvider.init(context);
 
    Usuario usuario = Usuario.fromJson(await _sharedPref.read('usuario')??{});
-/*
-  ?
-  es lo mismo poner if(usuario !=null){
-    if(usuario.sesionToken !=null){
-       Navigator.pushNamedAndRemoveUntil(context,'client/products/list', (route) => false);
-   */
-    //quitando esta linea de codigo me muestra la panatlla principal
-    //como ya esta iniciado session m muestra la pagina de lista de productos
-
-    //print('Usuario: ${usuario.toJson()}');
 
     if (usuario?.sessionToken != null)//si existe el sessionToken en shared preferences
       {
