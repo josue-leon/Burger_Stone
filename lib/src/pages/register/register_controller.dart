@@ -52,10 +52,19 @@ class RegisterController{
       return;
     }
 
+    //expresion regular para validar apellido
+
+    if(!RegExp(r"^[a-zA-Z]{3,10}$").hasMatch(apellido))
+    {
+      MySnackbar.show(context, 'El apellido ingresado no es válido');
+      return;
+    }
+
     if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
     {
       MySnackbar.show(context, 'Ingrese un email válido');
     }
+
 
     if (confirmPassword != password){
         MySnackbar.show(context, 'Las contraseñas no son iguales');
