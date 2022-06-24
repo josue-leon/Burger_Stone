@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:app_burger_stone/src/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/provider/users_provider.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:image_picker/image_picker.dart';
+
 
 class RegisterController{
 
@@ -47,6 +49,11 @@ class RegisterController{
         return;
     }
 
+    if(telefono.length > 10){
+        MySnackbar.show(context, 'El número telefónico solo puede contener 10 dígitos');
+        return;
+    }
+
     if(ValidarCI(cedula) == false){
       MySnackbar.show(context, 'La cédula ingresada no es válida');
       return;
@@ -63,11 +70,20 @@ class RegisterController{
     if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
     {
       MySnackbar.show(context, 'Ingrese un email válido');
+      return;
     }
+
+
 
 
     if (confirmPassword != password){
         MySnackbar.show(context, 'Las contraseñas no son iguales');
+        return;
+    }
+
+    //para crear un usuario con imagen
+    if (imageFile == null) {
+        MySnackbar.show(context, 'Selecciona una imagen');
         return;
     }
 
@@ -85,19 +101,25 @@ class RegisterController{
       password: password,
     );
 
+    Stream stream = await usersProvider.createWithImage(usuario, imageFile);
+    stream.listen((res) {
+
+     // ResponseApi responseApi = await usersProvider.create(usuario);
+      ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
+      print ('RESPUESTA: ${responseApi.toJson()}');
+
+      MySnackbar.show(context, responseApi.message);
+
+      if(responseApi.success){
+        Future.delayed(Duration(seconds: 3), (){
+          Navigator.pushReplacementNamed(context, 'login');
+        });
+      }
+    });
     //ResponseApi responseApiCI = await usersProvider.validarCI(cedula);
     //MySnackbar.show(context, responseApiCI.message);
 
-    ResponseApi responseApi = await usersProvider.create(usuario);
-    MySnackbar.show(context, responseApi.message);
 
-    if(responseApi.success){
-      Future.delayed(Duration(seconds: 3), (){
-        Navigator.pushReplacementNamed(context, 'login');
-      });
-    }
-
-    print ('RESPUESTA: ${responseApi.toJson()}');
   }
 
   Future selectImage(ImageSource imageSource) async{

@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app_burger_stone/src/api/environment.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
 class UsersProvider
 {
@@ -19,7 +21,30 @@ class UsersProvider
   {
     this.context = context;
   }
+//Creación de usuario con imagen
 
+  Future<Stream> createWithImage(Usuario usuario, File image) async{
+    try{
+      Uri url = Uri.http(_url, '$_api/create');
+      final request = http.MultipartRequest('POST', url);
+
+      if (image != null){
+        request.files.add(http.MultipartFile(
+          'image',
+          http.ByteStream(image.openRead().cast()),
+          await image.length(),
+          filename: basename(image.path)
+        ));
+      }
+
+      request.fields['usuario'] = json.encode(usuario);
+      final response = await request.send();// Donde se envia la petición
+      return response.stream.transform(utf8.decoder);
+    } catch(e) {
+      print('Error: $e');
+      return null;
+    }
+  }
   // Para registrar un usuario
   Future <ResponseApi> create(Usuario usuario) async
   {
