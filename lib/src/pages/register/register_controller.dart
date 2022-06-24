@@ -63,6 +63,7 @@ class RegisterController{
     if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
     {
       MySnackbar.show(context, 'Ingrese un email válido');
+      return;
     }
 
 
