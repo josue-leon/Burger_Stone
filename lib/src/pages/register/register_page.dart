@@ -205,11 +205,6 @@ class _RegisterPageState extends State<RegisterPage> {
           WhitelistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
         ],
         controller: _con.nombreController,
-        onChanged: (text) {
-          if(text.length == 3){
-            MySnackbar.show(context, 'El nombre debe tener al menos 3 letras');
-          }
-        },
         decoration: InputDecoration(
             hintText: 'Nombre',
             hintStyle: TextStyle(
@@ -237,11 +232,6 @@ class _RegisterPageState extends State<RegisterPage> {
           WhitelistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
         ],
         controller: _con.apellidoController,
-        onChanged: (text) {
-          if(text.length == 3){
-            MySnackbar.show(context, 'El apellido debe tener al menos 3 letras');
-          }
-        },
         decoration: InputDecoration(
             hintText: 'Apellido',
             hintStyle: TextStyle(
