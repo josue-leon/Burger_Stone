@@ -7,6 +7,7 @@ import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/provider/users_provider.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 
 class RegisterController{
@@ -26,11 +27,16 @@ class RegisterController{
   File imageFile;
   Function refresh;
 
+  ProgressDialog _progressDialog;
+
+  // Para desabilitar el boton de Registrar mientras se guarda el usuario
+  bool isEnable = true;
   Future init (BuildContext context, Function refresh)
   {
     this.context = context;
     this.refresh = refresh;
     usersProvider.init(context);
+    _progressDialog = ProgressDialog(context: context);
   }
 
   void register() async
@@ -92,6 +98,9 @@ class RegisterController{
       return;
     }
 
+    _progressDialog.show(max: 100, msg: 'Espere un momento....');
+    isEnable = false;
+
     Usuario usuario = new Usuario(
       cedula: cedula,
       email: email,
@@ -101,8 +110,11 @@ class RegisterController{
       password: password,
     );
 
+
     Stream stream = await usersProvider.createWithImage(usuario, imageFile);
     stream.listen((res) {
+
+      _progressDialog.close();
 
      // ResponseApi responseApi = await usersProvider.create(usuario);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
@@ -114,6 +126,9 @@ class RegisterController{
         Future.delayed(Duration(seconds: 3), (){
           Navigator.pushReplacementNamed(context, 'login');
         });
+      }
+      else {
+        isEnable = true;
       }
     });
     //ResponseApi responseApiCI = await usersProvider.validarCI(cedula);
@@ -131,7 +146,7 @@ class RegisterController{
     Navigator.pop(context);
     refresh();
   }
-
+// Tomar fotografia o seleccion de imagen
   void showAlertDialog(){
     Widget galleryButton = ElevatedButton(
       onPressed: () {
