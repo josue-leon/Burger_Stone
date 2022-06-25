@@ -79,9 +79,6 @@ class RegisterController{
       return;
     }
 
-
-
-
     if (confirmPassword != password){
         MySnackbar.show(context, 'Las contraseñas no son iguales');
         return;
@@ -89,7 +86,7 @@ class RegisterController{
 
     //para crear un usuario con imagen
     if (imageFile == null) {
-        MySnackbar.show(context, 'Selecciona una imagen');
+        MySnackbar.show(context, 'Seleccione una imagen');
         return;
     }
 
@@ -112,18 +109,23 @@ class RegisterController{
 
 
     Stream stream = await usersProvider.createWithImage(usuario, imageFile);
+<<<<<<< HEAD
     stream.listen((res) {
 
       _progressDialog.close();
 
+=======
+    stream.listen((res)
+    {
+>>>>>>> e4b992255bd12f069c9a022010a9a0e7cc687772
      // ResponseApi responseApi = await usersProvider.create(usuario);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
       print ('RESPUESTA: ${responseApi.toJson()}');
-
       MySnackbar.show(context, responseApi.message);
 
       if(responseApi.success){
-        Future.delayed(Duration(seconds: 3), (){
+        Future.delayed(Duration(seconds: 3), ()
+        {
           Navigator.pushReplacementNamed(context, 'login');
         });
       }
@@ -131,10 +133,6 @@ class RegisterController{
         isEnable = true;
       }
     });
-    //ResponseApi responseApiCI = await usersProvider.validarCI(cedula);
-    //MySnackbar.show(context, responseApiCI.message);
-
-
   }
 
   Future selectImage(ImageSource imageSource) async{
@@ -234,21 +232,21 @@ class RegisterController{
 
         //Validamos que el digito validador sea igual al de la cedula
         if(digito_validador == ultimo_digito){
-          print('la cedula:' + cedula + ' es correcta');
+          print('la cédula:' + cedula + ' es correcta');
           return true;
         }else{
-          print('la cedula:' + cedula + ' es incorrecta');
+          print('la cédula:' + cedula + ' es incorrecta');
           return false;
         }
       } else{
         // imprimimos en consola si la region no pertenece
-        print('Esta cedula no pertenece a ninguna region');
+        print('Esta cédula no pertenece a ninguna región');
         return false;
       }
 
     } else {
       //imprimimos en consola si la cedula tiene mas o menos de 10 digitos
-      print('La cedula debe contener 10 digitos');
+      print('La cédula debe contener 10 digitos');
       return false;
     }
   }

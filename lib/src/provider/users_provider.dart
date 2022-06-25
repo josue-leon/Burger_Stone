@@ -22,9 +22,9 @@ class UsersProvider
     this.context = context;
   }
 //Creación de usuario con imagen
-
   Future<Stream> createWithImage(Usuario usuario, File image) async{
-    try{
+    try
+    {
       Uri url = Uri.http(_url, '$_api/create');
       final request = http.MultipartRequest('POST', url);
 
@@ -38,9 +38,11 @@ class UsersProvider
       }
 
       request.fields['usuario'] = json.encode(usuario);
-      final response = await request.send();// Donde se envia la petición
+      final response = await request.send();// Donde se envía la petición
       return response.stream.transform(utf8.decoder);
-    } catch(e) {
+    }
+    catch(e)
+    {
       print('Error: $e');
       return null;
     }
