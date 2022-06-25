@@ -154,22 +154,21 @@ class _Login_pageState extends State<Login_page> {
       children: [
         Text('¿No tienes una cuenta?',
           style: TextStyle(
-              color: MyColors.primaryColor
+              color: MyColors.primaryColor,
+              fontSize: 17
 
           ),
         ),
         SizedBox(width: 10,),
         GestureDetector(//envuelve a la etiqueta
           onTap:_con.goToRegisterPage,//similar al evento onclick cuando el usuario de click llamamos al controlador
-
-
           child: Text(
-
-            'Regístrate',
+            'Regístrese',
             style:
             TextStyle(
                 fontWeight: FontWeight.bold,
-                color: MyColors.primaryColor
+                color: MyColors.primaryColor,
+                fontSize: 17
             ),
           ),
         )
