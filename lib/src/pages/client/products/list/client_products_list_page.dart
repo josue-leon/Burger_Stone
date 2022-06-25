@@ -3,7 +3,6 @@ import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-
 class ClientProductsListPage extends StatefulWidget {
   const ClientProductsListPage({Key key}) : super(key: key);
 
@@ -12,7 +11,6 @@ class ClientProductsListPage extends StatefulWidget {
 }
 
 class _ClientProductsListPageState extends State<ClientProductsListPage> {
-
   ClientProductsListController _con = new ClientProductsListController();
 
   @override
@@ -25,11 +23,10 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     });
   }
 
-
   @override
-  Widget build(BuildContext context)
-  {
-    return Scaffold( //esqueleto de la aplicación
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //esqueleto de la aplicación
       key: _con.key,
       appBar: AppBar(
         leading: _menuDrawer(),
@@ -45,26 +42,29 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
-  Widget _menuDrawer()
-  {
+
+  Widget _menuDrawer() {
     return GestureDetector(
       onTap: _con.openDrawer,
       child: Container(
         margin: EdgeInsets.only(left: 20),
         alignment: Alignment.centerLeft,
-        child: Image.asset('assets/img/menu.png',width: 20,height: 20,),
+        child: Image.asset(
+          'assets/img/menu.png',
+          width: 20,
+          height: 20,
+        ),
       ),
     );
   }
+
   Widget _drawer() {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: MyColors.primaryColor
-            ),
+              decoration: BoxDecoration(color: MyColors.primaryColor),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -74,9 +74,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold
-                    ),
-                    maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
+                        fontWeight: FontWeight.bold),
+                    maxLines:
+                        1, //este nombre no puede ocupar mas de una linea el texto
                   ),
 
                   Text(
@@ -85,9 +85,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                         fontSize: 13,
                         color: Colors.grey[200],
                         fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
+                        fontStyle: FontStyle.italic),
+                    maxLines:
+                        1, //este nombre no puede ocupar mas de una linea el texto
                   ),
 
                   Text(
@@ -96,51 +96,48 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                         fontSize: 13,
                         color: Colors.grey[200],
                         fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
+                        fontStyle: FontStyle.italic),
+                    maxLines:
+                        1, //este nombre no puede ocupar mas de una linea el texto
                   ),
 
                   // Imagen del usuario
                   Container(
                     height: 60,
-                    margin: EdgeInsets.only(top:10),
+                    margin: EdgeInsets.only(top: 10),
                     child: FadeInImage(
                       image: _con.usuario?.imagen != null
                           ? NetworkImage(_con.usuario?.imagen)
                           : AssetImage('assets/img/no-image.png'),
                       fit: BoxFit.contain,
                       fadeInDuration: Duration(milliseconds: 50),
-                      placeholder:AssetImage('assets/img/no-image.png') ,//carga imagen x defecto
+                      placeholder: AssetImage(
+                          'assets/img/no-image.png'), //carga imagen x defecto
                     ),
                   )
-
                 ],
-              )
-          ),
+              )),
           ListTile(
             title: Text('Editar perfil'),
             trailing: Icon(Icons.edit_outlined),
-
           ),
           ListTile(
             title: Text('Mis pedidos'),
             trailing: Icon(Icons.shopping_cart_outlined),
-
           ),
-
-          _con.usuario != null ?
-          _con.usuario.roles.length > 1 ?
-          ListTile(
-            onTap: _con.goToRoles,
-            title: Text('Seleccionar Rol'),
-            trailing: Icon(Icons.person_outline),
-          ) : Container() : Container(),
+          _con.usuario != null
+              ? _con.usuario.roles.length > 1
+                  ? ListTile(
+                      onTap: _con.goToRoles,
+                      title: Text('Seleccionar Rol'),
+                      trailing: Icon(Icons.person_outline),
+                    )
+                  : Container()
+              : Container(),
           ListTile(
             onTap: _con.logout,
             title: Text('Cerrar sesión'),
             trailing: Icon(Icons.power_settings_new),
-
           ),
         ],
       ),
