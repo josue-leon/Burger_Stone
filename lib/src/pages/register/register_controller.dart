@@ -109,15 +109,8 @@ class RegisterController{
 
 
     Stream stream = await usersProvider.createWithImage(usuario, imageFile);
-<<<<<<< HEAD
-    stream.listen((res) {
-
-      _progressDialog.close();
-
-=======
     stream.listen((res)
     {
->>>>>>> e4b992255bd12f069c9a022010a9a0e7cc687772
      // ResponseApi responseApi = await usersProvider.create(usuario);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
       print ('RESPUESTA: ${responseApi.toJson()}');
