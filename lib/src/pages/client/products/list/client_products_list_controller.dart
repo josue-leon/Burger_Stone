@@ -26,6 +26,9 @@ class ClientProductsListController {
     key.currentState.openDrawer();
   }
 
+  void goToPageUpdate(){
+    Navigator.pushNamed(context, 'client/update');
+  }
   // Para que muestre los roles
   void goToRoles(){
     Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);

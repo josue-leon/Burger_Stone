@@ -1,4 +1,5 @@
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_page.dart';
+import 'package:app_burger_stone/src/pages/client/update/client_update_page.dart';
 import 'package:app_burger_stone/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:app_burger_stone/src/pages/login/login_page.dart';
 import 'package:app_burger_stone/src/pages/register/register_page.dart';
@@ -32,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         'register' : (BuildContext context) =>   RegisterPage(),//ruta a la pantalla de registro
         'roles' : (BuildContext context) =>   RolesPage(),//ruta para la pantalla de roles
         'client/products/list' : (BuildContext context) =>   ClientProductsListPage(),//ruta para listar productos
+        'client/update' : (BuildContext context) =>   ClientUpdatePage(),//ruta para editar perfil del cliente
         'restaurant/orders/list' : (BuildContext context) =>   RestaurantOrdersListPage(),//ruta para listar productos
         'delivery/orders/list' : (BuildContext context) =>   DeliveryOrdersListPage()//ruta para listar productos
 
