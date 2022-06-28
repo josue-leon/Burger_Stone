@@ -1,3 +1,4 @@
+import 'package:app_burger_stone/src/pages/client/update/client_update_controller.dart';
 import 'package:app_burger_stone/src/pages/register/register_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -5,16 +6,16 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:app_burger_stone/src/utils/my_snackbar.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key key}) : super(key: key);
+class ClientUpdatePage extends StatefulWidget {
+  const ClientUpdatePage({Key key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<ClientUpdatePage> createState() => _ClientUpdatePageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _ClientUpdatePageState extends State<ClientUpdatePage> {
 
-  RegisterController _con = new RegisterController();
+  ClientUpdateController _con = new ClientUpdateController();
   @override
   void initState() {
     // TODO: implement initState
@@ -27,51 +28,26 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(//por lo general todos los page scaffold etiqueta principal esquelo de nuestra pantalla
+     appBar: AppBar(
+       title: Text('Editar Perfil'),
+       backgroundColor: MyColors.primaryColor,
+     ),
       body: Container(
         width: double.infinity,
-        child: Stack(
-          children: [
-            Positioned(
-              top: -88,
-              left: -100,
-              child: _CircleRegister(),
-            ),
-            Positioned(
-              top: 60,
-              left: 25,
-              child: _textRegister(),
-            ),
-            Positioned(
-                top: 45,
-                left: -5,
-                child: _iconBack()
-            ),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(top: 150),
-              //permite hacer scroll en pantallas mas pequeñas
-              //donde existen demasidos campos
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _imagenUsuario(),
-                    SizedBox(height: 30,),
-                    _textFieldCedula(),
-                    _textFieldEmail(),
-                    _textFieldNombre(),
-                    _textFieldApellido(),
-                    _textFieldTelefono(),
-                    _textFieldPassword(),
-                    _textFieldConfirmPassword(),
-                    _buttonRegister()
-                  ],
-                ),
-              ),
-            )
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 60,),
+              _imagenUsuario(),
+              SizedBox(height: 30,),
+              _textFieldNombre(),
+              _textFieldApellido(),
+              _textFieldTelefono(),
+            ],
+          ),
         ),
       ),
-
+      bottomNavigationBar:  _buttonRegister(),
     );
   }
 
@@ -81,6 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: CircleAvatar(
         backgroundImage: _con.imageFile != null
             ? FileImage(_con.imageFile)
+            : _con.usuario?.imagen != null ? NetworkImage(_con.usuario?.imagen)
             : AssetImage('assets/img/user_profile_2.png'),
         radius: 60,
         backgroundColor: Colors.grey[200],
@@ -123,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: ElevatedButton(
         onPressed: _con.isEnable ? _con.register : null,
-        child: Text('Registrar'),
+        child: Text('ACTUALIZAR CAMBIOS'),
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
             shape: RoundedRectangleBorder(
@@ -146,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
         inputFormatters: [
           BlacklistingTextInputFormatter(RegExp(r"[a-zA-Z]+|\s")),
         ],
-        controller: _con.cedulaController,
+        //controller: _con.cedulaController,
         onChanged: (text) {
           if(text.length > 10){
             MySnackbar.show(context, 'La cédula debe tener 10 digitos');
@@ -176,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: _con.emailController,
+        //controller: _con.emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
@@ -288,7 +265,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: _con.passwordController,
+        //controller: _con.passwordController,
         obscureText: true,
         decoration: InputDecoration(
             hintText: 'Contraseña',
@@ -313,7 +290,7 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: _con.confirmPasswordController,
+        //controller: _con.confirmPasswordController,
         obscureText: true,
         decoration: InputDecoration(
             hintText: 'Confirmar contraseña',

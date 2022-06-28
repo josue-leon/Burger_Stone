@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "289204279449",
-    "project_id": "burger-stone",
-    "storage_bucket": "burger-stone.appspot.com"
+    "project_number": "781253022004",
+    "project_id": "burgerstone-app",
+    "storage_bucket": "burgerstone-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:289204279449:android:29724f9371919801f6c008",
+        "mobilesdk_app_id": "1:781253022004:android:21bae2a2ec9c6a9ee31561",
         "android_client_info": {
           "package_name": "com.burger.app_burger_stone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "289204279449-vctjhi1d58f9olpp41bbu3t9lhcf5jap.apps.googleusercontent.com",
+          "client_id": "781253022004-tn8sd4gdottop9aj6g8ood031sphfil6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.burger.app_burger_stone",
-            "certificate_hash": "b071e044028eaa935fee8cc36280c8975b04983a"
+            "certificate_hash": "a64a006d5674faeaa137973cdef95d8bfd042422"
           }
         },
         {
-          "client_id": "289204279449-k3psceihdaj5h5firoq8agl8sl8t8g20.apps.googleusercontent.com",
+          "client_id": "781253022004-1jqcspq5tfg4q0m98c54mvn9btdhou7g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDVfirHxSue7WfmxCIQfDaiODA38cryfxQ"
+          "current_key": "AIzaSyDVEsgrva0WtzYXsb--ONAjALYLKqdbGSw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "289204279449-k3psceihdaj5h5firoq8agl8sl8t8g20.apps.googleusercontent.com",
+              "client_id": "781253022004-1jqcspq5tfg4q0m98c54mvn9btdhou7g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

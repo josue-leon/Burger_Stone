@@ -2,24 +2,24 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:app_burger_stone/src/utils/my_snackbar.dart';
+import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/provider/users_provider.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 
-class RegisterController{
+class ClientUpdateController{
 
   BuildContext context;
-  TextEditingController cedulaController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
+
   TextEditingController nombreController = new TextEditingController();
   TextEditingController apellidoController = new TextEditingController();
   TextEditingController telefonoController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController confirmPasswordController = new TextEditingController();
+
 
   UsersProvider usersProvider = new UsersProvider();
 
@@ -29,41 +29,43 @@ class RegisterController{
 
   ProgressDialog _progressDialog;
 
+  Usuario usuario;
+  SharedPref _sharedPrefe = new SharedPref();
+
+
   // Para desabilitar el boton de Registrar mientras se guarda el usuario
   bool isEnable = true;
-  Future init (BuildContext context, Function refresh)
+  Future init (BuildContext context, Function refresh) async
   {
     this.context = context;
     this.refresh = refresh;
     usersProvider.init(context);
     _progressDialog = ProgressDialog(context: context);
+    usuario = Usuario.fromJson(await _sharedPrefe.read('usuario'));
+
+
+    nombreController.text = usuario.nombre;
+    apellidoController.text = usuario.apellido;
+    telefonoController.text = usuario.telefono;
+    refresh();
   }
 
   void register() async
   {
-    String cedula = cedulaController.text;
-    String email = emailController.text.trim();
     String nombre = nombreController.text;
     String apellido = apellidoController.text;
     String telefono = telefonoController.text.trim();
-    String password = passwordController.text.trim();
-    String confirmPassword = confirmPasswordController.text.trim();
 
-
-    if (cedula.isEmpty || email.isEmpty || nombre.isEmpty || apellido.isEmpty || telefono.isEmpty || password.isEmpty || confirmPassword.isEmpty){
-        MySnackbar.show(context, 'Llene todos los campos para registrarse');
-        return;
+    if ( nombre.isEmpty || apellido.isEmpty || telefono.isEmpty){
+      MySnackbar.show(context, 'Llene todos los campos para registrarse');
+      return;
     }
 
     if(telefono.length > 10){
-        MySnackbar.show(context, 'El número telefónico solo puede contener 10 dígitos');
-        return;
-    }
-
-    if(ValidarCI(cedula) == false){
-      MySnackbar.show(context, 'La cédula ingresada no es válida');
+      MySnackbar.show(context, 'El número telefónico solo puede contener 10 dígitos');
       return;
     }
+
 
     //expresion regular para validar apellido
 
@@ -72,46 +74,28 @@ class RegisterController{
       MySnackbar.show(context, 'El apellido ingresado no es válido');
       return;
     }
-
-    if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email))
-    {
-      MySnackbar.show(context, 'Ingrese un email válido');
-      return;
-    }
-
-    if (confirmPassword != password){
-        MySnackbar.show(context, 'Las contraseñas no son iguales');
-        return;
-    }
-
     //para crear un usuario con imagen
     if (imageFile == null) {
-        MySnackbar.show(context, 'Seleccione una imagen');
-        return;
-    }
-
-    if (password.length<6){
-      MySnackbar.show(context, 'La contraseña debe contener al menos 6 caracteres');
+      MySnackbar.show(context, 'Seleccione una imagen');
       return;
     }
+
 
     _progressDialog.show(max: 100, msg: 'Espere un momento....');
     isEnable = false;
 
+
     Usuario usuario = new Usuario(
-      cedula: cedula,
-      email: email,
       nombre: nombre,
       apellido: apellido,
       telefono: telefono,
-      password: password,
     );
 
 
     Stream stream = await usersProvider.createWithImage(usuario, imageFile);
     stream.listen((res)
     {
-     // ResponseApi responseApi = await usersProvider.create(usuario);
+      // ResponseApi responseApi = await usersProvider.create(usuario);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
       print ('RESPUESTA: ${responseApi.toJson()}');
       MySnackbar.show(context, responseApi.message);
@@ -140,10 +124,10 @@ class RegisterController{
 // Tomar fotografia o seleccion de imagen
   void showAlertDialog(){
     Widget galleryButton = ElevatedButton(
-      onPressed: () {
-        selectImage(ImageSource.gallery);
-      },
-      child: Text('GALERIA')
+        onPressed: () {
+          selectImage(ImageSource.gallery);
+        },
+        child: Text('GALERIA')
     );
 
     Widget cameraButton = ElevatedButton(
@@ -162,10 +146,10 @@ class RegisterController{
     );
 
     showDialog(
-      context: context,
-      builder: (BuildContext context){
-        return alertDialog;
-      }
+        context: context,
+        builder: (BuildContext context){
+          return alertDialog;
+        }
     );
   }
 
