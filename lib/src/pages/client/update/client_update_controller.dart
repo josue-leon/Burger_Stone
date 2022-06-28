@@ -10,6 +10,7 @@ import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 
 class ClientUpdateController{
@@ -50,7 +51,7 @@ class ClientUpdateController{
     refresh();
   }
 
-  void register() async
+  void update() async
   {
     String nombre = nombreController.text;
     String apellido = apellidoController.text;
@@ -66,7 +67,6 @@ class ClientUpdateController{
       return;
     }
 
-
     //expresion regular para validar apellido
 
     if(!RegExp(r"^[a-zA-Z]{3,15}$").hasMatch(apellido))
@@ -80,31 +80,28 @@ class ClientUpdateController{
       return;
     }
 
-
     _progressDialog.show(max: 100, msg: 'Espere un momento....');
     isEnable = false;
 
 
-    Usuario usuario = new Usuario(
+    Usuario myUsuario = new Usuario(
+      id: usuario.id,
       nombre: nombre,
       apellido: apellido,
       telefono: telefono,
     );
 
-
-    Stream stream = await usersProvider.createWithImage(usuario, imageFile);
+    Stream stream = await usersProvider.update(myUsuario, imageFile);
     stream.listen((res)
     {
       // ResponseApi responseApi = await usersProvider.create(usuario);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
-      print ('RESPUESTA: ${responseApi.toJson()}');
+      //Fluttertoast.showToast(msg: responseApi.message);
       MySnackbar.show(context, responseApi.message);
 
       if(responseApi.success){
-        Future.delayed(Duration(seconds: 3), ()
-        {
-          Navigator.pushReplacementNamed(context, 'login');
-        });
+        // Por ahora
+        Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (route) => false);
       }
       else {
         isEnable = true;

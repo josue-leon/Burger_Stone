@@ -40,6 +40,27 @@ class UsersProvider {
     }
   }
 
+  //Actualización de datos del usuario
+  Future<Stream> update(Usuario usuario, File image) async {
+    try {
+      Uri url = Uri.http(_url, '$_api/update');
+      final request = http.MultipartRequest('PUT', url);
+
+      if (image != null) {
+        request.files.add(http.MultipartFile('image',
+            http.ByteStream(image.openRead().cast()), await image.length(),
+            filename: basename(image.path)));
+      }
+
+      request.fields['usuario'] = json.encode(usuario);
+      final response = await request.send(); // Donde se envía la petición
+      return response.stream.transform(utf8.decoder);
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
   // Para registrar un usuario
   Future<ResponseApi> create(Usuario usuario) async {
     // Si hay error
