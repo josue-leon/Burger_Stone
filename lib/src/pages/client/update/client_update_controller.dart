@@ -92,15 +92,17 @@ class ClientUpdateController{
     );
 
     Stream stream = await usersProvider.update(myUsuario, imageFile);
-    stream.listen((res)
+    stream.listen((res) async
     {
       // ResponseApi responseApi = await usersProvider.create(usuario);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
       //Fluttertoast.showToast(msg: responseApi.message);
       MySnackbar.show(context, responseApi.message);
 
-      if(responseApi.success){
-        // Por ahora
+      if(responseApi.success)
+      {
+        usuario = await usersProvider.getById(myUsuario.id); // Obteniendo el usuario de la bd
+        _sharedPrefe.save('usuario', usuario.toJson());
         Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (route) => false);
       }
       else {

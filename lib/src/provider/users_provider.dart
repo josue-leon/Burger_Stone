@@ -19,6 +19,25 @@ class UsersProvider {
     this.context = context;
   }
 
+  // Obtener el id
+  Future<Usuario> getById(String id) async
+  {
+    try {
+      Uri url = Uri.http(_url, '$_api/findById/$id');
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+      };
+      final res = await http.get(url, headers: headers);
+      final data = json.decode(res.body);
+      Usuario usuario = Usuario.fromJson(data);
+      return usuario;
+    }
+    catch(e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
 //Creación de usuario con imagen
   Future<Stream> createWithImage(Usuario usuario, File image) async {
     try {
