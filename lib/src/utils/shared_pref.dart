@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';//importamos paquete matirial
-import 'package:shared_preferences/shared_preferences.dart';//importamos paquete shared preferences
+import 'package:app_burger_stone/src/provider/users_provider.dart';
+import 'package:flutter/material.dart'; //importamos paquete matirial
+import 'package:shared_preferences/shared_preferences.dart'; //importamos paquete shared preferences
 
 class SharedPref {
-
   //metodos para trabajar conn shared preferences nuestro almacenamiento con percistencia de datos
 
   //metodo para almacenar inf en el storage
@@ -39,11 +39,12 @@ class SharedPref {
   }
 
   //metodo para cerrar sesion
-  void logout(BuildContext context) async{
+  void logout(BuildContext context, String idUser) async {
+    UsersProvider usersProvider = new UsersProvider();
+    usersProvider.init(context);
+    await usersProvider.logout(idUser);
+
     await remove('usuario');
     Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
-
   }
-
-
 }
