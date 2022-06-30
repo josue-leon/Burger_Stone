@@ -8,7 +8,8 @@ import 'package:app_burger_stone/src/pages/roles/roles_page.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
-void main() {//metodo principal
+void main() {
+  //metodo principal
   runApp(MyApp());
 }
 
@@ -18,6 +19,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 //stf widget
 class _MyAppState extends State<MyApp> {
   @override
@@ -26,23 +28,27 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Delivery App Burger Stone',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',//la ruta que se va a iniciar primero
+      initialRoute: 'login', //la ruta que se va a iniciar primero
       // Rutas
-      routes: {//colocamos todas las rutas que vamos creando
-        'login' : (BuildContext context) => Login_page(),
-        'register' : (BuildContext context) =>   RegisterPage(),//ruta a la pantalla de registro
-        'roles' : (BuildContext context) =>   RolesPage(),//ruta para la pantalla de roles
-        'client/products/list' : (BuildContext context) =>   ClientProductsListPage(),//ruta para listar productos
-        'client/update' : (BuildContext context) =>   ClientUpdatePage(),//ruta para editar perfil del cliente
-        'restaurant/orders/list' : (BuildContext context) =>   RestaurantOrdersListPage(),//ruta para listar productos
-        'delivery/orders/list' : (BuildContext context) =>   DeliveryOrdersListPage()//ruta para listar productos
-
+      routes: {
+        //colocamos todas las rutas que vamos creando
+        'login': (BuildContext context) => Login_page(),
+        'register': (BuildContext context) =>
+            RegisterPage(), //ruta a la pantalla de registro
+        'roles': (BuildContext context) =>
+            RolesPage(), //ruta para la pantalla de roles
+        'client/products/list': (BuildContext context) =>
+            ClientProductsListPage(), //ruta para listar productos
+        'client/update': (BuildContext context) =>
+            ClientUpdatePage(), //ruta para editar perfil del cliente
+        'restaurant/orders/list': (BuildContext context) =>
+            RestaurantOrdersListPage(), //ruta para listar productos
+        'delivery/orders/list': (BuildContext context) =>
+            DeliveryOrdersListPage() //ruta para listar productos
       },
       //para establecer el color
-      theme: ThemeData(
-          fontFamily: 'Roboto',
-          primaryColor: MyColors.primaryColor
-      ),
+      theme:
+          ThemeData(fontFamily: 'Roboto', primaryColor: MyColors.primaryColor),
     );
   }
 }

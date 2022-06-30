@@ -9,8 +9,8 @@ Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
 
 class Usuario {
-
-  dynamic id;//se le cambio a tipo dynamic está recibiendo es inconsistente. Algunos datos son int, algunos son cadenas.
+  String
+      id; //se le cambio a tipo dynamic está recibiendo es inconsistente. Algunos datos son int, algunos son cadenas.
   String cedula;
   String email;
   String nombre;
@@ -22,45 +22,47 @@ class Usuario {
   List<Rol> roles = [];
 
   // Constructor de la clase
-  Usuario({
-    this.id,
-    this.cedula,
-    this.email,
-    this.nombre,
-    this.apellido,
-    this.telefono,
-    this.imagen,
-    this.password,
-    this.sessionToken,
-    this.roles
-  });
+  Usuario(
+      {this.id,
+      this.cedula,
+      this.email,
+      this.nombre,
+      this.apellido,
+      this.telefono,
+      this.imagen,
+      this.password,
+      this.sessionToken,
+      this.roles});
 
   // Mapa de valores Json que retorna un objeto usuario
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
-    id: json["id"] is int ? json['id'].toString() : json["id"],
-    cedula: json["cedula"],
-    email: json["email"],
-    nombre: json["nombre"],
-    apellido: json["apellido"],
-    telefono: json["telefono"],
-    imagen: json["imagen"],
-    password: json["password"],
-    sessionToken: json["session_token"],
-    roles: json["roles"] == null ? [] : List<Rol>.from(json['roles'].map((model) => Rol.fromJson(model))) ?? [],
-  );
+        id: json["id"] is int ? json['id'].toString() : json["id"],
+        cedula: json["cedula"],
+        email: json["email"],
+        nombre: json["nombre"],
+        apellido: json["apellido"],
+        telefono: json["telefono"],
+        imagen: json["imagen"],
+        password: json["password"],
+        sessionToken: json["session_token"],
+        roles: json["roles"] == null
+            ? []
+            : List<Rol>.from(
+                    json['roles'].map((model) => Rol.fromJson(model))) ??
+                [],
+      );
 
   // Objeto Json que toma los valores que se ingresa y lo transforma a json
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "cedula": cedula,
-    "email": email,
-    "nombre": nombre,
-    "apellido": apellido,
-    "telefono": telefono,
-    "imagen": imagen,
-    "password": password,
-    "session_token": sessionToken,
-    "roles": roles,
-  };
-
+        "id": id,
+        "cedula": cedula,
+        "email": email,
+        "nombre": nombre,
+        "apellido": apellido,
+        "telefono": telefono,
+        "imagen": imagen,
+        "password": password,
+        "session_token": sessionToken,
+        "roles": roles,
+      };
 }
