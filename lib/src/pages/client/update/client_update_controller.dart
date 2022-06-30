@@ -69,11 +69,6 @@ class ClientUpdateController {
       MySnackbar.show(context, 'El apellido ingresado no es válido');
       return;
     }
-    //para crear un usuario con imagen
-    if (imageFile == null) {
-      MySnackbar.show(context, 'Seleccione una imagen');
-      return;
-    }
 
     _progressDialog.show(max: 100, msg: 'Espere un momento....');
     isEnable = false;
