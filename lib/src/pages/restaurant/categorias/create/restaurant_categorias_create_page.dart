@@ -76,7 +76,7 @@ class _RestaurantCategoriasCreatePageState extends State<RestaurantCategoriasCre
         maxLines: 3,
         maxLength: 255,
         decoration: InputDecoration(
-            hintText: 'Nombre de la categoría',
+            hintText: 'Descripción de la categoría',
             hintStyle: TextStyle(
                 color: MyColors.primaryColor
             ),

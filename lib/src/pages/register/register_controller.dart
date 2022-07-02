@@ -126,7 +126,7 @@ class RegisterController {
       }
     });
   }
-
+//METODO PARA SELECCIONAR IMAGENES GALERIA
   Future selectImage(ImageSource imageSource) async {
     pickedFile = await ImagePicker().getImage(source: imageSource);
     if (pickedFile != null) {

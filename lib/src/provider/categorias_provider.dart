@@ -22,6 +22,29 @@ class CategoriasProvider {
     this.sessionUser = sessionUser;
   }
 
+  //metodo para obtener las categorias
+  Future<List<Categoria>> getAll() async {
+    try {
+      Uri url = Uri.http(_url, '$_api/getAll'); //obtiene todos los datos
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers,);
+      if (res.statusCode == 401) {//401 respuesta no autorizada
+        MySnackbar.show(context, 'Sesión Expirada');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      final data = json.decode(res.body);//se obtiene las categorias
+      Categoria categoria = Categoria.fromJsonList(data);
+      return categoria.toList;//retornamos la lista de categorias
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
+  }
+
   Future<ResponseApi> create(Categoria categoria) async {
     // Si hay error
     try {

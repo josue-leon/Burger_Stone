@@ -5,6 +5,7 @@ import 'package:app_burger_stone/src/pages/login/login_page.dart';
 import 'package:app_burger_stone/src/pages/register/register_page.dart';
 import 'package:app_burger_stone/src/pages/restaurant/categorias/create/restaurant_categorias_create_page.dart';
 import 'package:app_burger_stone/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
+import 'package:app_burger_stone/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
 import 'package:app_burger_stone/src/pages/roles/roles_page.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,8 @@ class _MyAppState extends State<MyApp> {
             RestaurantOrdersListPage(), //ruta para listar productos
         'restaurant/categorias/create': (BuildContext context) =>
             RestaurantCategoriasCreatePage(),
+        'restaurant/products/create': (BuildContext context) =>
+            RestaurantProductsCreatePage(),
         'delivery/orders/list': (BuildContext context) =>
             DeliveryOrdersListPage() //ruta para listar productos
       },
