@@ -1,3 +1,4 @@
+import 'package:app_burger_stone/src/models/categoria.dart';
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -25,20 +26,160 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //esqueleto de la aplicación
-      key: _con.key,
-      appBar: AppBar(
-        leading: _menuDrawer(),
-      ),
-      drawer: _drawer(),
-      body: Center(
-        //child: Text('LISTA DE PRODUCTOS'),
-        //Parte de Cerrar sesión
-        child: ElevatedButton(
-          onPressed: _con.logout,
-          child: Text('Cerrar Sesión'),
+    return DefaultTabController(
+      length: _con.categories?.length,
+      child: Scaffold(
+        key: _con.key,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(170),
+          child: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            actions: [_shoppingBag()],
+            flexibleSpace: Column(
+              children: [
+                SizedBox(height: 40),
+                _menuDrawer(),
+                SizedBox(height: 20),
+                _textFieldSearch()
+              ],
+            ),
+            bottom: TabBar(
+              indicatorColor: MyColors.primaryColor,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey[400],
+              isScrollable: true,
+              tabs: List<Widget>.generate(_con.categories.length, (index) {
+                return Tab(
+                  child: Text(_con.categories[index].nombre ?? ''),
+                );
+              }),
+            ),
+          ),
         ),
+        drawer: _drawer(),
+        body: TabBarView(
+          children: _con.categories.map((Categoria category) {
+            return GridView.count(
+              crossAxisCount: 2,
+              children: List.generate(10, (index) {
+                return _cardProduct();
+              }),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget _cardProduct() {
+    return Container(
+      height: 250,
+      child: Card(
+        elevation: 3.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Stack(
+          children: [
+            Positioned(
+                top: -1.0,
+                right: -1.0,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: MyColors.primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        topRight: Radius.circular(20),
+                      )),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                )),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 150,
+                  margin: EdgeInsets.only(top: 20),
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  padding: EdgeInsets.all(20),
+                  child: FadeInImage(
+                    image: AssetImage('assets/img/pizza2.png'),
+                    fit: BoxFit.contain,
+                    fadeInDuration: Duration(milliseconds: 50),
+                    placeholder: AssetImage('assets/img/no-image.png'),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  height: 33,
+                  child: Text(
+                    'Nombre del producto',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 15, fontFamily: 'NimbusSans'),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  child: Text(
+                    'Nombre del producto',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'NimbusSans'),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _shoppingBag() {
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.only(right: 15, top: 13),
+          child: Icon(
+            Icons.shopping_bag_outlined,
+            color: Colors.black,
+          ),
+        ),
+        Positioned(
+            right: 16,
+            top: 15,
+            child: Container(
+              width: 9,
+              height: 9,
+              decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
+            ))
+      ],
+    );
+  }
+
+  Widget _textFieldSearch() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        decoration: InputDecoration(
+            hintText: 'Buscar',
+            suffixIcon: Icon(Icons.search, color: Colors.grey[400]),
+            hintStyle: TextStyle(fontSize: 17, color: Colors.grey[500]),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.grey[300])),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.grey[300])),
+            contentPadding: EdgeInsets.all(15)),
       ),
     );
   }

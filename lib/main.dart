@@ -53,8 +53,10 @@ class _MyAppState extends State<MyApp> {
             DeliveryOrdersListPage() //ruta para listar productos
       },
       //para establecer el color
-      theme:
-          ThemeData(fontFamily: 'Roboto', primaryColor: MyColors.primaryColor),
+      theme: ThemeData(
+          fontFamily: 'Roboto',
+          primaryColor: MyColors.primaryColor,
+          appBarTheme: AppBarTheme(elevation: 0)),
     );
   }
 }

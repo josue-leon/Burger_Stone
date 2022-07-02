@@ -1,6 +1,8 @@
+import 'package:app_burger_stone/src/provider/categorias_provider.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
+import 'package:app_burger_stone/src/models/categoria.dart';
 
 class ClientProductsListController {
   BuildContext context;
@@ -9,10 +11,20 @@ class ClientProductsListController {
   Function refresh;
   Usuario usuario;
 
+  List<Categoria> categories = [];
+  CategoriasProvider _categoriesProvider = new CategoriasProvider();
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
     usuario = Usuario.fromJson(await _sharedPref.read('usuario'));
+    _categoriesProvider.init(context, usuario);
+    getCategories();
+    refresh();
+  }
+
+  void getCategories() async {
+    categories = await _categoriesProvider.getAll();
     refresh();
   }
 
