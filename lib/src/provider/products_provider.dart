@@ -25,6 +25,30 @@ class ProductsProvider {
     this.sessionUser = sessionUser;
   }
 
+  //Listar Productos por Categoria para el cliente
+
+  Future<List<Producto>> getByCategory(String idCategory) async {
+    try {
+      Uri url = Uri.http(_url, '$_api/findByCategory/$idCategory'); //obtiene todos los datos
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers,);
+
+      if (res.statusCode == 401) {//401 respuesta no autorizada
+        MySnackbar.show(context, 'Sesión Expirada');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+      final data = json.decode(res.body);//se obtiene las productos
+      Producto producto = Producto.fromJsonList(data);
+      return producto.toList;//retornamos la lista de productos
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
+  }
+  
   Future<Stream> create(Producto producto, List<File> images) async {
     try {
       Uri url = Uri.http(_url, '$_api/create');

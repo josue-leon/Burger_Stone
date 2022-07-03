@@ -18,7 +18,7 @@ class Categoria {
   List<Categoria>toList=[];
 
   factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
-    id: json["id"],
+    id: json["id"] is int ? json["id"].toString() : json['id'],
     nombre: json["nombre"],
     descripcion: json["descripcion"],
   );
