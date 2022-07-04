@@ -12,16 +12,14 @@ class ClientOrdersCreatePage extends StatefulWidget {
   State<ClientOrdersCreatePage> createState() => _ClientOrdersCreatePageState();
 }
 
-class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
-{
+class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage> {
   ClientOrdersCreateController _con = new ClientOrdersCreateController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp)
-    {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
   }
@@ -33,26 +31,27 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
         title: Text('Mi orden'),
       ),
       bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.25,
-        child: Column(
-          children: [
-            Divider(
-              color: Colors.grey[400],
-              endIndent: 20, //Margen en la Derecha
-              indent: 20, // Margen en la Izquierda
-            ),
-            _textTotalPrecio(),
-            _buttonNext()
-          ],
-        )
-      ),
+          height: MediaQuery.of(context).size.height * 0.25,
+          child: Column(
+            children: [
+              Divider(
+                color: Colors.grey[400],
+                endIndent: 20, //Margen en la Derecha
+                indent: 20, // Margen en la Izquierda
+              ),
+              _textTotalPrecio(),
+              _buttonNext()
+            ],
+          )),
       body: _con.selectedProductos.length > 0
-        ? ListView(
-        children: _con.selectedProductos.map((Producto producto) {
-          return _cardProducto(producto);
-        }).toList(),
-      )
-          : NoDataWidget(text: 'Ningún producto agregado',),
+          ? ListView(
+              children: _con.selectedProductos.map((Producto producto) {
+                return _cardProducto(producto);
+              }).toList(),
+            )
+          : NoDataWidget(
+              text: 'Ningún producto agregado',
+            ),
     );
   }
 
@@ -60,14 +59,12 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 40, bottom: 30),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _con.goToAddress,
         style: ElevatedButton.styleFrom(
             primary: Colors.amber,
             padding: EdgeInsets.symmetric(vertical: 5),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14)
-            )
-        ),
+                borderRadius: BorderRadius.circular(14))),
         child: Stack(
           children: [
             Align(
@@ -77,10 +74,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
                 alignment: Alignment.center,
                 child: Text(
                   'CONTINUAR',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -102,7 +96,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
     );
   }
 
-  Widget _cardProducto (Producto producto) {
+  Widget _cardProducto(Producto producto) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -114,9 +108,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
             children: [
               Text(
                 producto?.nombre ?? '',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               _addOrRemoveItem(producto)
@@ -124,10 +116,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
           ),
           Spacer(),
           Column(
-            children: [
-              _textPrecio(producto),
-              _iconDelete(producto)
-            ],
+            children: [_textPrecio(producto), _iconDelete(producto)],
           )
         ],
       ),
@@ -136,11 +125,10 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
 
   Widget _iconDelete(Producto producto) {
     return IconButton(
-      onPressed: () {
-        _con.deleteItem(producto);
-      },
-      icon: Icon(Icons.delete, color: MyColors.primaryColor)
-    );
+        onPressed: () {
+          _con.deleteItem(producto);
+        },
+        icon: Icon(Icons.delete, color: MyColors.primaryColor));
   }
 
   Widget _textTotalPrecio() {
@@ -151,17 +139,11 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
         children: [
           Text(
             'TOTAL:',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
           Text(
             '${_con.total}\$',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           )
         ],
       ),
@@ -173,23 +155,19 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
       margin: EdgeInsets.only(top: 10),
       child: Text(
         '${producto.precio * producto.cantidad}',
-        style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold
-        ),
+        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
       ),
     );
   }
 
-  Widget _imagenProducto (Producto producto) {
+  Widget _imagenProducto(Producto producto) {
     return Container(
       width: 90,
       height: 90,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.amber
-      ),
+          color: Colors.amber),
       child: FadeInImage(
         image: producto.imagen1 != null
             ? NetworkImage(producto.imagen1)
@@ -201,7 +179,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
     );
   }
 
-  Widget _addOrRemoveItem (Producto producto) {
+  Widget _addOrRemoveItem(Producto producto) {
     return Row(
       children: [
         GestureDetector(
@@ -213,10 +191,8 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8)
-                ),
-                color: Colors.yellow[100]
-            ),
+                    bottomLeft: Radius.circular(8)),
+                color: Colors.yellow[100]),
             child: Text('-'),
           ),
         ),
@@ -234,18 +210,16 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(8),
-                    bottomRight: Radius.circular(8)
-                ),
-                color: Colors.yellow[100]
-            ),
+                    bottomRight: Radius.circular(8)),
+                color: Colors.yellow[100]),
             child: Text('+'),
           ),
         ),
       ],
     );
   }
-  void refresh()
-  {
+
+  void refresh() {
     setState(() {});
   }
 }

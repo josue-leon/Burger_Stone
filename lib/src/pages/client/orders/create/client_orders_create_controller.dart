@@ -5,8 +5,7 @@ import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ClientOrdersCreateController{
-
+class ClientOrdersCreateController {
   BuildContext context;
   Function refresh;
 
@@ -16,23 +15,21 @@ class ClientOrdersCreateController{
   double productoPrecio;
   SharedPref _sharedPref = new SharedPref();
   List<Producto> selectedProductos = [];
-  double total =0;
+  double total = 0;
 
-  Future init(BuildContext context, Function refresh) async
-  {
+  Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
 
-    selectedProductos = Producto.fromJsonList(await _sharedPref.read('orden')).toList;
+    selectedProductos =
+        Producto.fromJsonList(await _sharedPref.read('orden')).toList;
     getTotal();
     refresh();
   }
 
-  void getTotal()
-  {
+  void getTotal() {
     total = 0;
-    selectedProductos.forEach((producto)
-    {
+    selectedProductos.forEach((producto) {
       total = total + (producto.cantidad * producto.precio);
     });
     refresh();
@@ -58,5 +55,9 @@ class ClientOrdersCreateController{
     selectedProductos.removeWhere((p) => p.id == producto.id);
     _sharedPref.save('orden', selectedProductos);
     getTotal();
+  }
+
+  void goToAddress() {
+    Navigator.pushNamed(context, 'client/address/create');
   }
 }
