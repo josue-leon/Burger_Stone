@@ -11,6 +11,7 @@ import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
@@ -95,7 +96,7 @@ class RestaurantProductsCreateController {
       _progressDialog.close();
 
       ResponseApi responseApi= ResponseApi.fromJson(json.decode(res));
-      MySnackbar.show(context, responseApi.message);
+      Fluttertoast.showToast(msg: responseApi.message);
       if(responseApi.success){
         resetValues();
       }

@@ -98,7 +98,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
 
   Widget _cardProduct(Producto producto) {
     return GestureDetector(
-      onTap: _con.openBottomSheet,
+      onTap: () {
+        _con.openBottomSheet(producto);
+      },
       child: Container(
         height: 250,
         child: Card(
@@ -171,26 +173,29 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
   }
 
   Widget _shoppingBag() {
-    return Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.only(right: 15, top: 13),
-          child: Icon(
-            Icons.shopping_bag_outlined,
-            color: Colors.black,
+    return GestureDetector(
+      onTap: _con.goToPageCreatePage,
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 15, top: 13),
+            child: Icon(
+              Icons.shopping_bag_outlined,
+              color: Colors.black,
+            ),
           ),
-        ),
-        Positioned(
-            right: 16,
-            top: 15,
-            child: Container(
-              width: 9,
-              height: 9,
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-            ))
-      ],
+          Positioned(
+              right: 16,
+              top: 15,
+              child: Container(
+                width: 9,
+                height: 9,
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+              ))
+        ],
+      ),
     );
   }
 

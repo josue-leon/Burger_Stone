@@ -5,6 +5,7 @@ import 'package:app_burger_stone/src/utils/my_snackbar.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RestaurantCategoriasCreateController {
   BuildContext context;
@@ -45,6 +46,6 @@ class RestaurantCategoriasCreateController {
       descripcionController.text = '';
     }
 
-    MySnackbar.show(context, responseApi.message);
+    Fluttertoast.showToast(msg: responseApi.message);
   }
 }

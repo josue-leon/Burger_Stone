@@ -1,3 +1,4 @@
+import 'package:app_burger_stone/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:app_burger_stone/src/pages/client/update/client_update_page.dart';
 import 'package:app_burger_stone/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -43,6 +44,8 @@ class _MyAppState extends State<MyApp> {
             ClientProductsListPage(), //ruta para listar productos
         'client/update': (BuildContext context) =>
             ClientUpdatePage(), //ruta para editar perfil del cliente
+        'client/orders/create': (BuildContext context) =>
+            ClientOrdersCreatePage(), //ruta para editar perfil del cliente
         'restaurant/orders/list': (BuildContext context) =>
             RestaurantOrdersListPage(), //ruta para listar productos
         'restaurant/categorias/create': (BuildContext context) =>

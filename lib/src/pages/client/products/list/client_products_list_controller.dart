@@ -1,5 +1,4 @@
 import 'package:app_burger_stone/src/models/producto.dart';
-import 'package:app_burger_stone/src/pages/client/products/detail/client_product_detail_controller.dart';
 import 'package:app_burger_stone/src/provider/categorias_provider.dart';
 import 'package:app_burger_stone/src/provider/products_provider.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/pages/client/products/detail/client_product_detail_page.dart';
 import 'package:app_burger_stone/src/models/categoria.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ClientProductsListController {
@@ -37,17 +35,16 @@ class ClientProductsListController {
     return await _productProvider.getByCategory(idCategory);
   }
 
-
   void getCategories() async {
     categories = await _categoriesProvider.getAll();
     refresh();
   }
 
   //Modal Bottom Sheet
-  void openBottomSheet(){
+  void openBottomSheet(Producto producto){
     showMaterialModalBottomSheet(
         context: context,
-        builder: (context) => ClientProductsDetailPage()
+        builder: (context) => ClientProductsDetailPage(producto: producto)
     );
   }
   void logout() {
@@ -60,6 +57,10 @@ class ClientProductsListController {
 
   void goToPageUpdate() {
     Navigator.pushNamed(context, 'client/update');
+  }
+
+  void goToPageCreatePage() {
+    Navigator.pushNamed(context, 'client/orders/create');
   }
 
   // Para que muestre los roles
