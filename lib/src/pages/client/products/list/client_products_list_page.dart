@@ -5,7 +5,6 @@ import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:app_burger_stone/src/widgets/no_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:app_burger_stone/src/widgets/no_data_widget.dart';
 
 class ClientProductsListPage extends StatefulWidget {
   const ClientProductsListPage({Key key}) : super(key: key);

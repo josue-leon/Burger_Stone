@@ -1,3 +1,5 @@
+import 'package:app_burger_stone/src/models/orden.dart';
+import 'package:app_burger_stone/src/provider/orden_provider.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
@@ -9,11 +11,21 @@ class RestaurantOrdersListController {
   Function refresh;
   Usuario usuario;
 
+  List<String> status = ['PAGADO', 'DESPACHADO', 'EN CAMINO', 'ENTREGADO'];
+
+  OrdenProvider _ordenProvider = new OrdenProvider();
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
     usuario = Usuario.fromJson(await _sharedPref.read('usuario'));
+
+    _ordenProvider.init(context, usuario);
     refresh();
+  }
+
+  Future<List<Orden>> getOrders(String status) async{
+    return await _ordenProvider.getByStatus(status);
   }
 
   void logout() {

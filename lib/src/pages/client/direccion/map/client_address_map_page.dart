@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:app_burger_stone/src/pages/client/address/list/client_address_list_controller.dart';
-import 'package:app_burger_stone/src/pages/client/address/map/client_address_map_controller.dart';
+import 'package:app_burger_stone/src/pages/client/direccion/map/client_address_map_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
-import 'package:app_burger_stone/src/widgets/no_data_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ClientAddressMapPage extends StatefulWidget {
@@ -76,7 +74,7 @@ class _ClientAddressMapPageState extends State<ClientAddressMapPage> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text(
-            _con.addressName ?? '',
+            _con.direccionNombre ?? '',
             style: TextStyle(
                 color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
           ),

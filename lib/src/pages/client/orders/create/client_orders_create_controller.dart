@@ -21,8 +21,7 @@ class ClientOrdersCreateController {
     this.context = context;
     this.refresh = refresh;
 
-    selectedProductos =
-        Producto.fromJsonList(await _sharedPref.read('orden')).toList;
+    selectedProductos = Producto.fromJsonList(await _sharedPref.read('orden')).toList;
     getTotal();
     refresh();
   }
@@ -58,6 +57,6 @@ class ClientOrdersCreateController {
   }
 
   void goToAddress() {
-    Navigator.pushNamed(context, 'client/address/create');
+    Navigator.pushNamed(context, 'client/direccion/list');
   }
 }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:app_burger_stone/src/pages/client/address/create/client_address_create_controller.dart';
-import 'package:app_burger_stone/src/pages/client/address/list/client_address_list_controller.dart';
+import 'package:app_burger_stone/src/pages/client/direccion/create/client_address_create_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 
 class ClientAddressCreatePage extends StatefulWidget {
   const ClientAddressCreatePage({Key key}) : super(key: key);
 
   @override
-  _ClientAddressCreatePageState createState() =>
-      _ClientAddressCreatePageState();
+  _ClientAddressCreatePageState createState() => _ClientAddressCreatePageState();
 }
 
 class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
@@ -28,27 +26,27 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nueva direccion'),
+        title: Text('Nueva dirección'),
       ),
       bottomNavigationBar: _buttonAccept(),
       body: Column(
         children: [
           _textCompleteData(),
-          _textFieldAddress(),
-          _textFieldNeighborhood(),
+          _textFieldDireccion(),
+          _textFieldVecindario(),
           _textFieldRefPoint()
         ],
       ),
     );
   }
 
-  Widget _textFieldAddress() {
+  Widget _textFieldDireccion() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TextField(
-        controller: _con.addressController,
+        controller: _con.direccionController,
         decoration: InputDecoration(
-            labelText: 'Direccion',
+            labelText: 'Dirección',
             suffixIcon: Icon(
               Icons.location_on,
               color: MyColors.primaryColor,
@@ -75,13 +73,13 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
     );
   }
 
-  Widget _textFieldNeighborhood() {
+  Widget _textFieldVecindario() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TextField(
-        controller: _con.neighborhoodController,
+        controller: _con.vecindarioController,
         decoration: InputDecoration(
-            labelText: 'Barrio',
+            labelText: 'Vecindario',
             suffixIcon: Icon(
               Icons.location_city,
               color: MyColors.primaryColor,
@@ -95,8 +93,11 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       child: Text(
-        'Completa estos datos',
-        style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+        'Complete los datos',
+        style: TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.bold
+        ),
       ),
     );
   }
@@ -108,7 +109,7 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
       margin: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
       child: ElevatedButton(
         onPressed: _con.createAddress,
-        child: Text('CREAR DIRECCION'),
+        child: Text('CREAR DIRECCIÓN'),
         style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

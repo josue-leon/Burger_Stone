@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_burger_stone/src/api/environment.dart';
-import 'package:app_burger_stone/src/models/categoria.dart';
+import 'package:app_burger_stone/src/models/orden.dart';
 import 'package:app_burger_stone/src/models/response_api.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
@@ -9,10 +9,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-class CategoriasProvider {
+class OrdenProvider {
 
   String _url = Environment.BURGER_STONE;
-  String _api = '/BurgerStone/categorias';
+  String _api = '/BurgerStone/orden';
   BuildContext context;
   Usuario sessionUser;
 
@@ -22,10 +22,9 @@ class CategoriasProvider {
     this.sessionUser = sessionUser;
   }
 
-  //metodo para obtener las categorias
-  Future<List<Categoria>> getAll() async {
+  Future<List<Orden>> getByStatus(String status) async {
     try {
-      Uri url = Uri.http(_url, '$_api/getAll'); //obtiene todos los datos
+      Uri url = Uri.http(_url, '$_api/findByStatus/$status'); //obtiene todos los datos
       Map<String, String> headers = {
         'Content-type': 'application/json',
         'Authorization': sessionUser.sessionToken
@@ -37,20 +36,20 @@ class CategoriasProvider {
       }
 
       final data = json.decode(res.body);//se obtiene las categorias
-      Categoria categoria = Categoria.fromJsonList(data);
-      return categoria.toList;//retornamos la lista de categorias
+      Orden orden = Orden.fromJsonList(data);
+      return orden.toList;//retornamos la lista de categorias
     } catch (e) {
       print('Error: $e');
       return [];
     }
   }
 
-  Future<ResponseApi> create(Categoria categoria) async {
+  Future<ResponseApi> create(Orden orden) async {
     // Si hay error
     try {
       // Si ejecuta bien
       Uri url = Uri.http(_url, '$_api/create');
-      String bodyParams = json.encode(categoria);
+      String bodyParams = json.encode(orden);
       Map<String, String> headers = {
         'Content-type': 'application/json',
         'Authorization': sessionUser.sessionToken

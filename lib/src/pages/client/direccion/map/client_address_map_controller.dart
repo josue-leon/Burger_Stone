@@ -11,8 +11,8 @@ class ClientAddressMapController {
   Function refresh;
   Position _position;
 
-  String addressName;
-  LatLng addressLatLng;
+  String direccionNombre;
+  LatLng direccionLatLng;
 
   CameraPosition initialPosition =
       CameraPosition(target: LatLng(-1.6660803, -78.72978), zoom: 14);
@@ -27,9 +27,9 @@ class ClientAddressMapController {
 
   void selectRefPoint() {
     Map<String, dynamic> data = {
-      'address': addressName,
-      'lat': addressLatLng.latitude,
-      'lng': addressLatLng.longitude,
+      'direccion': direccionNombre,
+      'latitud': direccionLatLng.latitude,
+      'longitud': direccionLatLng.longitude,
     };
 
     Navigator.pop(context, data);
@@ -37,10 +37,10 @@ class ClientAddressMapController {
 
   Future<Null> setLocationDraggableInfo() async {
     if (initialPosition != null) {
-      double lat = initialPosition.target.latitude;
-      double lng = initialPosition.target.longitude;
+      double latitud = initialPosition.target.latitude;
+      double longitud = initialPosition.target.longitude;
 
-      List<Placemark> address = await placemarkFromCoordinates(lat, lng);
+      List<Placemark> address = await placemarkFromCoordinates(latitud, longitud);
 
       if (address != null) {
         if (address.length > 0) {
@@ -49,8 +49,8 @@ class ClientAddressMapController {
           String city = address[0].locality;
           String department = address[0].administrativeArea;
           String country = address[0].country;
-          addressName = '$direction #$street, $city, $department';
-          addressLatLng = new LatLng(lat, lng);
+          direccionNombre = '$direction #$street, $city, $department';
+          direccionLatLng = new LatLng(latitud, longitud);
           // print('LAT: ${addressLatLng.latitude}');
           // print('LNG: ${addressLatLng.longitude}');
 
@@ -89,11 +89,11 @@ class ClientAddressMapController {
     }
   }
 
-  Future animateCameraToPosition(double lat, double lng) async {
+  Future animateCameraToPosition(double latitud, double longitud) async {
     GoogleMapController controller = await _mapController.future;
     if (controller != null) {
       controller.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(lat, lng), zoom: 13, bearing: 0)));
+          CameraPosition(target: LatLng(latitud, longitud), zoom: 13, bearing: 0)));
     }
   }
 
