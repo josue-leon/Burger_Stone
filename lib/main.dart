@@ -5,6 +5,7 @@ import 'package:app_burger_stone/src/pages/client/orders/create/client_orders_cr
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:app_burger_stone/src/pages/client/update/client_update_page.dart';
 import 'package:app_burger_stone/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
+import 'package:app_burger_stone/src/pages/delivery/orders/map/delivery_orders_map_page.dart';
 import 'package:app_burger_stone/src/pages/login/login_page.dart';
 import 'package:app_burger_stone/src/pages/register/register_page.dart';
 import 'package:app_burger_stone/src/pages/restaurant/categorias/create/restaurant_categorias_create_page.dart';
@@ -61,7 +62,9 @@ class _MyAppState extends State<MyApp> {
         'restaurant/products/create': (BuildContext context) =>
             RestaurantProductsCreatePage(),
         'delivery/orders/list': (BuildContext context) =>
-            DeliveryOrdersListPage() //ruta para listar productos
+            DeliveryOrdersListPage(), //ruta para listar productos
+        'delivery/orders/map': (BuildContext context) =>
+            DeliveryOrdersMapPage() //ruta para listar productos
       },
       //para establecer el color
       theme: ThemeData(

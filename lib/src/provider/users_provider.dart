@@ -23,6 +23,30 @@ class UsersProvider {
     this.sessionUser = sessionUser;
   }
 
+  Future<List<Usuario>> getDelivery() async {
+    try {
+      Uri url = Uri.http(_url, '$_api/findDelivery');
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers);
+
+      if (res.statusCode == 401) {
+        // NO AUTORIZADO
+        // Fluttertoast.showToast(msg: 'Tu sesion expiro');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      final data = json.decode(res.body);
+      Usuario usuario = Usuario.fromJsonList(data);
+      return usuario.toList;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
   // Obtener el id
   Future<Usuario> getById(String id) async {
     try {

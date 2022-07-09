@@ -20,6 +20,7 @@ class Usuario {
   String password;
   String sessionToken;
   List<Rol> roles = [];
+  List<Usuario> toList = [];
 
   // Constructor de la clase
   Usuario(
@@ -51,6 +52,15 @@ class Usuario {
                     json['roles'].map((model) => Rol.fromJson(model))) ??
                 [],
       );
+
+  Usuario.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null)
+      return;
+    jsonList.forEach((item) {
+      Usuario usuario = Usuario.fromJson(item); //convierto el item en category
+      toList.add(usuario);
+    });
+  }
 
   // Objeto Json que toma los valores que se ingresa y lo transforma a json
   Map<String, dynamic> toJson() => {

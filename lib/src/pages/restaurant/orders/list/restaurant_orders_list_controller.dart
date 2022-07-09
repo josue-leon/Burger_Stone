@@ -1,8 +1,10 @@
 import 'package:app_burger_stone/src/models/orden.dart';
+import 'package:app_burger_stone/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
 import 'package:app_burger_stone/src/provider/orden_provider.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RestaurantOrdersListController {
   BuildContext context;
@@ -12,8 +14,9 @@ class RestaurantOrdersListController {
   Usuario usuario;
 
   List<String> status = ['PAGADO', 'DESPACHADO', 'EN CAMINO', 'ENTREGADO'];
-
   OrdenProvider _ordenProvider = new OrdenProvider();
+
+  bool isUpdated;
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
@@ -26,6 +29,19 @@ class RestaurantOrdersListController {
 
   Future<List<Orden>> getOrders(String status) async{
     return await _ordenProvider.getByStatus(status);
+  }
+
+  void openBottomSheet(Orden orden) async
+  {
+    isUpdated = await showMaterialModalBottomSheet(
+        context: context,
+        builder: (context) => RestaurantOrdersDetailPage(orden: orden)
+    );
+
+    if (isUpdated)
+    {
+      refresh();
+    }
   }
 
   void logout() {
