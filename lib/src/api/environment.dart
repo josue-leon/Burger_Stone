@@ -1,6 +1,7 @@
 //Conexión PC Erika
 class Environment {
   static const String BURGER_STONE = "192.168.9.1:3000";
+  static const String BURGER_STONE_KEY_MAPS = "AIzaSyADP2diBoqjnCBzaqKqAkqf0WB15bpIP6k";
 }
 
 // Conexión PC Erika ESPOCH

@@ -55,18 +55,10 @@ class Orden {
           timestamp: json["timestamp"] is String
               ? int.parse(json["timestamp"])
               : json["timestamp"],
-          producto: json["producto"] != null
-              ? List<Producto>.from(
-              json["producto"].map((model) => Producto.fromJson(model))) ?? []
-              : [],
-          cliente: json['cliente'] is String
-              ? usuarioFromJson(json['cliente'])
-              : Usuario.fromJson(json['cliente'] ?? {}),
-          repartidor: json['repartidor'] is String
-              ? usuarioFromJson(json['repartidor'])
-              : Usuario.fromJson(json['repartidor'] ?? {}),
-          direccion: json['direccion'] is String ? direccionFromJson(
-              json['direccion']) : Direccion.fromJson(json['direccion'] ?? {})
+          producto: json["producto"] != null ? List<Producto>.from(json["producto"].map((model) => model is Producto ? model : Producto.fromJson(model))) ?? [] : [],
+          cliente: json['cliente'] is String ? usuarioFromJson(json['cliente']) : json['cliente'] is Usuario ? json['cliente'] : Usuario.fromJson(json['cliente'] ?? {}),
+          repartidor: json['repartidor'] is String ? usuarioFromJson(json['repartidor']) : json['repartidor'] is Usuario ? json['repartidor'] : Usuario.fromJson(json['repartidor'] ?? {}),
+          direccion: json['direccion'] is String ? direccionFromJson(json['direccion']) : json['direccion'] is Direccion ? json['direccion'] : Direccion.fromJson(json['direccion'] ?? {})
       );
 
   Orden.fromJsonList(List<dynamic> jsonList) {

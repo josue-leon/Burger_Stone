@@ -1,25 +1,23 @@
 import 'package:app_burger_stone/src/models/orden.dart';
-import 'package:app_burger_stone/src/pages/restaurant/orders/list/restaurant_orders_list_controller.dart';
 import 'package:app_burger_stone/src/utils/my_colors.dart';
 import 'package:app_burger_stone/src/widgets/no_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'client_orders_list_controller.dart';
 
-class RestaurantOrdersListPage extends StatefulWidget {
-  const RestaurantOrdersListPage({Key key}) : super(key: key);
+class ClientOrdersListPage extends StatefulWidget {
+  const ClientOrdersListPage({Key key}) : super(key: key);
 
   @override
-  State<RestaurantOrdersListPage> createState() => _RestaurantOrdersListPage();
+  State<ClientOrdersListPage> createState() => _ClientOrdersListPage();
 }
 
-class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
-  RestaurantOrdersListController _con = new RestaurantOrdersListController();
-
+class _ClientOrdersListPage extends State<ClientOrdersListPage> {
+  ClientOrdersListController _con = new ClientOrdersListController();
   @override
-  void initState()
-  {
+  void initState() {
+    // TODO: implement initState
     super.initState();
-
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
@@ -35,17 +33,11 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            flexibleSpace: Column(
-              children: [
-                SizedBox(height: 40),
-                _menuDrawer(),
-              ],
-            ),
+            title: Text('Mis pedidos'),
+            backgroundColor: MyColors.primaryColor,
             bottom: TabBar(
               indicatorColor: MyColors.primaryColor,
-              labelColor: Colors.black,
+              labelColor: Colors.white,
               unselectedLabelColor: Colors.grey[400],
               isScrollable: true,
               tabs: List<Widget>.generate(_con.status.length, (index) {
@@ -56,13 +48,12 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
             ),
           ),
         ),
-        drawer: _drawer(),
         body: TabBarView(
           children: _con.status.map((String status) {
             return FutureBuilder(
                 future: _con.getOrders(status),
-                builder: (context, AsyncSnapshot<List<Orden>> snapshot)
-                {
+                builder: (context, AsyncSnapshot<List<Orden>> snapshot) {
+
                   if (snapshot.hasData){
                     if (snapshot.data.length > 0){
                       return ListView.builder(
@@ -151,7 +142,7 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
                       margin: EdgeInsets.symmetric(vertical: 5),
                       width: double.infinity,
                       child: Text(
-                        'Cliente: ${orden.cliente?.nombre ?? ''} ${orden.cliente?.apellido ?? ''}',
+                        'Repartidor: ${orden.repartidor?.nombre ?? 'No asignado'} ${orden.repartidor?.apellido ?? ''}',
                         style: TextStyle(
                             fontSize: 13
                         ),
@@ -176,109 +167,6 @@ class _RestaurantOrdersListPage extends State<RestaurantOrdersListPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _menuDrawer(){
-    return GestureDetector(
-      onTap: _con.openDrawer,
-      child: Container(
-        margin: EdgeInsets.only(left: 20),
-        alignment: Alignment.centerLeft,
-        child: Image.asset('assets/img/menu.png',width: 20,height: 20,),
-      ),
-    );
-  }
-  Widget _drawer() {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-              decoration: BoxDecoration(
-                  color: MyColors.primaryColor
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    // Si no tiene un nombre de usuario se muestra ''
-                    '${_con.usuario?.nombre ?? ''} ${_con.usuario?.apellido ?? ''}',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                    ),
-                    maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
-                  ),
-
-                  Text(
-                    _con.usuario?.email ?? '',
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[200],
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
-                  ),
-
-                  Text(
-                    _con.usuario?.telefono ?? '',
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[200],
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,//este nombre no puede ocupar mas de una linea el texto
-                  ),
-
-                  // Imagen del usuario
-                  Container(
-                    height: 60,
-                    margin: EdgeInsets.only(top:10),
-                    child: FadeInImage(
-                      image: _con.usuario?.imagen != null
-                          ? NetworkImage(_con.usuario?.imagen)
-                          : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.contain,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder:AssetImage('assets/img/no-image.png') ,//carga imagen x defecto
-                    ),
-                  )
-
-                ],
-              )
-          ),
-
-          ListTile(
-            onTap: _con.goToCategoryCreate,
-            title: Text('Crear categoría'),
-            trailing: Icon(Icons.list_alt),
-          ),
-          ListTile(
-            onTap: _con.goToProductCreate,
-            title: Text('Crear producto'),
-            trailing: Icon(Icons.local_pizza),
-          ),
-
-          _con.usuario != null ?
-          _con.usuario.roles.length > 1 ?
-          ListTile(
-            onTap: _con.goToRoles,
-            title: Text('Seleccionar Rol'),
-            trailing: Icon(Icons.person_outline),
-          ) : Container() : Container(),
-
-          ListTile(
-            onTap: _con.logout,
-            title: Text('Cerrar sesión'),
-            trailing: Icon(Icons.power_settings_new),
-
-          ),
-        ],
       ),
     );
   }

@@ -12,12 +12,13 @@ class ClientAddressListPage extends StatefulWidget {
   _ClientAddressListPageState createState() => _ClientAddressListPageState();
 }
 
-class _ClientAddressListPageState extends State<ClientAddressListPage> {
+class _ClientAddressListPageState extends State<ClientAddressListPage>
+{
   ClientAddressListController _con = new ClientAddressListController();
 
   @override
-  void initState() {
-    // TODO: implement initState
+  void initState()
+  {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);

@@ -25,6 +25,7 @@ class UsersProvider {
 
   Future<List<Usuario>> getDelivery() async {
     try {
+      print('SESSION TOKEN DSDASD: ${sessionUser.sessionToken}');
       Uri url = Uri.http(_url, '$_api/findDelivery');
       Map<String, String> headers = {
         'Content-type': 'application/json',

@@ -110,6 +110,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_polyline_points",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_polyline_points-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///D:/src/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -260,6 +266,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "logging",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lottie",
       "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/lottie-1.2.2",
       "packageUri": "lib/",
@@ -386,6 +398,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "socket_io_client",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/socket_io_client-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "socket_io_common",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/socket_io_common-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "source_span",
       "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1",
       "packageUri": "lib/",
@@ -434,6 +458,54 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-6.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_android",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_android-6.0.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_ios",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_ios-6.0.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_linux-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_macos-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_platform_interface-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_web-2.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_windows-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.0",
       "packageUri": "lib/",
@@ -458,7 +530,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2022-07-08T22:49:12.074030Z",
+  "generated": "2022-07-11T00:04:13.504562Z",
   "generator": "pub",
   "generatorVersion": "2.14.0"
 }

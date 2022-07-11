@@ -13,8 +13,7 @@ class DeliveryOrdersListPage extends StatefulWidget {
 }
 
 class _DeliveryOrdersListPage extends State<DeliveryOrdersListPage> {
-  DeliveryOrdersListController _con = new DeliveryOrdersListController();//instancio
-  //sobreescribir el metodo initState
+  DeliveryOrdersListController _con = new DeliveryOrdersListController();
   @override
   void initState() {
     // TODO: implement initState

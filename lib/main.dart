@@ -2,6 +2,8 @@ import 'package:app_burger_stone/src/pages/client/direccion/create/client_addres
 import 'package:app_burger_stone/src/pages/client/direccion/list/client_address_list_page.dart';
 import 'package:app_burger_stone/src/pages/client/direccion/map/client_address_map_page.dart';
 import 'package:app_burger_stone/src/pages/client/orders/create/client_orders_create_page.dart';
+import 'package:app_burger_stone/src/pages/client/orders/list/client_orders_list_page.dart';
+import 'package:app_burger_stone/src/pages/client/orders/map/client_orders_map_page.dart';
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:app_burger_stone/src/pages/client/update/client_update_page.dart';
 import 'package:app_burger_stone/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -48,23 +50,18 @@ class _MyAppState extends State<MyApp> {
             ClientProductsListPage(), //ruta para listar productos
         'client/update': (BuildContext context) =>
             ClientUpdatePage(), //ruta para editar perfil del cliente
-        'client/orders/create': (BuildContext context) =>
-            ClientOrdersCreatePage(), //ruta para editar perfil del cliente
-        'client/direccion/list': (BuildContext context) =>
-            ClientAddressListPage(),
-        'client/direccion/create': (BuildContext context) =>
-            ClientAddressCreatePage(),
+        'client/orders/create': (BuildContext context) => ClientOrdersCreatePage(),
+        'client/direccion/list': (BuildContext context) => ClientAddressListPage(),
+        'client/direccion/create': (BuildContext context) => ClientAddressCreatePage(),
         'client/address/map': (BuildContext context) => ClientAddressMapPage(),
-        'restaurant/orders/list': (BuildContext context) =>
-            RestaurantOrdersListPage(), //ruta para listar productos
-        'restaurant/categorias/create': (BuildContext context) =>
-            RestaurantCategoriasCreatePage(),
-        'restaurant/products/create': (BuildContext context) =>
-            RestaurantProductsCreatePage(),
+        'client/orders/list': (BuildContext context) => ClientOrdersListPage(),
+        'client/orders/map': (BuildContext context) => ClientOrdersMapPage(),
+        'restaurant/orders/list': (BuildContext context) => RestaurantOrdersListPage(),
+        'restaurant/categorias/create': (BuildContext context) => RestaurantCategoriasCreatePage(),
+        'restaurant/products/create': (BuildContext context) => RestaurantProductsCreatePage(),
         'delivery/orders/list': (BuildContext context) =>
             DeliveryOrdersListPage(), //ruta para listar productos
-        'delivery/orders/map': (BuildContext context) =>
-            DeliveryOrdersMapPage() //ruta para listar productos
+        'delivery/orders/map': (BuildContext context) => DeliveryOrdersMapPage()
       },
       //para establecer el color
       theme: ThemeData(

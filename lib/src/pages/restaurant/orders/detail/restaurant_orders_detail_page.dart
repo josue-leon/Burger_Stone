@@ -60,8 +60,8 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
                 SizedBox(height: 10),
                 _con.orden.status != 'PAGADO' ? _deliveryData() : Container(),
                 _con.orden.status == 'PAGADO' ? _dropDown(_con.usuarios) : Container(),
-                _textData('Cliente:', '${_con.orden.cliente?.nombre ?? ''} ${_con.orden.cliente?.apellido ?? ''}'),
-                _textData('Entregar en:', '${_con.orden.direccion?.direccion ?? ''}'),
+                _textData('Cliente:', '${_con.orden?.cliente?.nombre ?? ''} ${_con.orden?.cliente?.apellido ?? ''}'),
+                _textData('Entregar en:', '${_con.orden?.direccion?.direccion ?? ''}'),
                 _textData(
                     'Fecha de pedido:',
                     '${RelativeTimeUtil.getRelativeTime(_con.orden?.timestamp ?? 0)}'),
@@ -192,11 +192,11 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
     return list;
   }
 
-  Widget _textData(String titulo, String contenido) {
+  Widget _textData(String title, String contenido) {
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: ListTile(
-          title: Text(titulo),
+          title: Text(title),
           subtitle: Text(
               contenido,
               maxLines: 2

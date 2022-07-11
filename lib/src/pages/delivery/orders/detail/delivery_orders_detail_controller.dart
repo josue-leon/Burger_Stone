@@ -42,10 +42,14 @@ class DeliveryOrdersDetailController {
 
   void updateOrden() async
   {
-    ResponseApi responseApi = await _ordenProvider.updateToOnTheWay(orden);
-    Fluttertoast.showToast(
-        msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-    if (responseApi.success) {
+    if (orden.status == 'DESPACHADO') {
+      ResponseApi responseApi = await _ordenProvider.updateToOnTheWay(orden);
+      Fluttertoast.showToast(msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
+      if (responseApi.success) {
+        Navigator.pushNamed(context, 'delivery/orders/map', arguments: orden.toJson());
+      }
+    }
+    else {
       Navigator.pushNamed(context, 'delivery/orders/map', arguments: orden.toJson());
     }
   }

@@ -1,19 +1,20 @@
 import 'package:app_burger_stone/src/models/orden.dart';
-import 'package:app_burger_stone/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
+import 'package:app_burger_stone/src/pages/client/orders/detail/client_orders_detail_page.dart';
+import 'package:app_burger_stone/src/pages/delivery/orders/detail/delivery_orders_detail_page.dart';
 import 'package:app_burger_stone/src/provider/orden_provider.dart';
 import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:app_burger_stone/src/models/usuario.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class RestaurantOrdersListController {
+class ClientOrdersListController {
   BuildContext context;
   SharedPref _sharedPref = new SharedPref();
   GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
   Function refresh;
   Usuario usuario;
 
-  List<String> status = ['PAGADO', 'DESPACHADO', 'EN CAMINO', 'ENTREGADO'];
+  List<String> status = ['PAGADO','DESPACHADO', 'EN CAMINO', 'ENTREGADO'];
   OrdenProvider _ordenProvider = new OrdenProvider();
 
   bool isUpdated;
@@ -27,16 +28,15 @@ class RestaurantOrdersListController {
     refresh();
   }
 
-  Future<List<Orden>> getOrders(String status) async
-  {
-    return await _ordenProvider.getByStatus(status);
+  Future<List<Orden>> getOrders(String status) async{
+    return await _ordenProvider.getByClientAndStatus(usuario.id, status);
   }
 
   void openBottomSheet(Orden orden) async
   {
     isUpdated = await showMaterialModalBottomSheet(
         context: context,
-        builder: (context) => RestaurantOrdersDetailPage(orden: orden)
+        builder: (context) => ClientOrdersDetailPage(orden: orden)
     );
 
     if (isUpdated)

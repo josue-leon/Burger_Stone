@@ -17,11 +17,10 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class DeliveryOrdersMapController {
+class ClientOrdersMapController {
   BuildContext context;
   Function refresh;
   Position _position;
-  StreamSubscription _positionStream;
 
   String direccionNombre;
   LatLng direccionLatLng;
@@ -43,9 +42,10 @@ class DeliveryOrdersMapController {
   OrdenProvider _ordenProvider = new OrdenProvider();
   Usuario usuario;
   SharedPref _sharedPref = new SharedPref();
+
   double _distanceBetween;
   IO.Socket socket;
-  
+
   Future init(BuildContext context, Function refresh) async
   {
     this.context = context;
@@ -60,18 +60,14 @@ class DeliveryOrdersMapController {
     });
     socket.connect();
 
+    socket.on('position/${orden.id}', (data) {
+      print(data);
+    });
+
     usuario = Usuario.fromJson(await _sharedPref.read('usuario'));
     _ordenProvider.init(context, usuario);
     print('ORDEN: ${orden.toJson()}');
     checkGPS();
-  }
-
-  void emitPosition() {
-    socket.emit('position', {
-      'id_orden': orden.id,
-      'latitud': _position.latitude,
-      'longitud': _position.longitude
-    });
   }
 
   void isCloseToDeliveryPosition() {
@@ -225,7 +221,6 @@ class DeliveryOrdersMapController {
   }
 
   void dispose() {
-    _positionStream?.cancel();
     socket?.disconnect();
   }
 
@@ -256,26 +251,7 @@ class DeliveryOrdersMapController {
       LatLng to = new LatLng(orden.direccion.latitud, orden.direccion.longitud);
 
       setPolylines(from, to);
-      _positionStream = Geolocator.getPositionStream(
-          desiredAccuracy: LocationAccuracy.best,
-        distanceFilter: 1
-      ).listen((Position position) {
-        _position = position;
-        emitPosition();
-
-        addMarker(
-            'repartidor',
-            _position.latitude,
-            _position.longitude,
-            'Su posición',
-            '',
-            deliveryMarker
-        );
-
-        animateCameraToPosition(_position.latitude, _position.longitude);
-        isCloseToDeliveryPosition();
-        refresh();
-      });
+      refresh();
     }
     catch (e) {
       print('Error: $e');

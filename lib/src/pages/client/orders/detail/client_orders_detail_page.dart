@@ -5,20 +5,20 @@ import 'package:app_burger_stone/src/widgets/no_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'delivery_orders_detail_controller.dart';
+import 'client_orders_detail_controller.dart';
 
-class DeliveryOrdersDetailPage extends StatefulWidget
+class ClientOrdersDetailPage extends StatefulWidget
 {
   Orden orden;
 
-  DeliveryOrdersDetailPage({Key key, @required this.orden}) : super(key: key);
+  ClientOrdersDetailPage({Key key, @required this.orden}) : super(key: key);
 
   @override
-  State<DeliveryOrdersDetailPage> createState() => _DeliveryOrdersDetailPageState();
+  State<ClientOrdersDetailPage> createState() => _ClientOrdersDetailPageState();
 }
 
-class _DeliveryOrdersDetailPageState extends State<DeliveryOrdersDetailPage> {
-  DeliveryOrdersDetailController _con = new DeliveryOrdersDetailController();
+class _ClientOrdersDetailPageState extends State<ClientOrdersDetailPage> {
+  ClientOrdersDetailController _con = new ClientOrdersDetailController();
 
   @override
   void initState() {
@@ -55,16 +55,16 @@ class _DeliveryOrdersDetailPageState extends State<DeliveryOrdersDetailPage> {
                   indent: 20, // Margen en la Izquierda
                 ),
                 SizedBox(height: 10),
-                _textData('Cliente:', '${_con.orden?.cliente?.nombre ?? ''} ${_con.orden?.cliente?.apellido ?? ''}'),
+                _textData('Repartidor:', '${_con.orden?.repartidor?.nombre ?? 'No asignado'} ${_con.orden?.repartidor?.apellido ?? ''}'),
                 _textData('Entregar en:', '${_con.orden?.direccion?.direccion ?? ''}'),
                 _textData(
                     'Fecha de pedido:',
                     '${RelativeTimeUtil.getRelativeTime(_con.orden?.timestamp ?? 0)}'),
-                _con.orden?.status != 'ENTREGADO' ? _buttonNext() : Container()
+                _con.orden?.status == 'EN CAMINO' ? _buttonNext() : Container()
               ],
             ),
           )),
-      body: _con.orden.producto.length > 0
+      body: _con.orden.producto?.length > 0
           ? ListView(
               children: _con.orden.producto.map((Producto producto) {
                 return _cardProducto(producto);
@@ -93,7 +93,7 @@ class _DeliveryOrdersDetailPageState extends State<DeliveryOrdersDetailPage> {
       child: ElevatedButton(
         onPressed: _con.updateOrden,
         style: ElevatedButton.styleFrom(
-            primary: _con.orden?.status == 'DESPACHADO' ? Colors.blue : Colors.green,
+            primary: Colors.blue,
             padding: EdgeInsets.symmetric(vertical: 5),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14))),
@@ -105,7 +105,7 @@ class _DeliveryOrdersDetailPageState extends State<DeliveryOrdersDetailPage> {
                 height: 40,
                 alignment: Alignment.center,
                 child: Text(
-                  _con.orden?.status == 'DESPACHADO' ? 'INICIAR ENTREGA' : 'IR AL MAPA',
+                'SEGUIR ENTREGA',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),

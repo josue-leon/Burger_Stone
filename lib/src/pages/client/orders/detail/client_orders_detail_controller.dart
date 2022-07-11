@@ -8,7 +8,7 @@ import 'package:app_burger_stone/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class RestaurantOrdersDetailController {
+class ClientOrdersDetailController {
   BuildContext context;
   Function refresh;
 
@@ -42,17 +42,7 @@ class RestaurantOrdersDetailController {
 
   void updateOrden() async
   {
-    if (idRepartidor != null)
-    {
-      orden.idRepartidor = idRepartidor;
-      ResponseApi responseApi = await _ordenProvider.updateToDispatched(orden);
-      Fluttertoast.showToast(msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-      Navigator.pop(context, true);
-    }
-    else
-    {
-      Fluttertoast.showToast(msg: 'Seleccione el repartidor');
-    }
+    Navigator.pushNamed(context, 'client/orders/map', arguments: orden.toJson());
   }
 
   void getUsuarios() async {

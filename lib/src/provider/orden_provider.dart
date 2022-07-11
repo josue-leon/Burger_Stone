@@ -24,7 +24,7 @@ class OrdenProvider {
 
   Future<List<Orden>> getByStatus(String status) async {
     try {
-      Uri url = Uri.http(_url, '$_api/findByStatus/$status'); //obtiene todos los datos
+      Uri url = Uri.http(_url, '$_api/findByStatus/$status');
       Map<String, String> headers = {
         'Content-type': 'application/json',
         'Authorization': sessionUser.sessionToken
@@ -47,6 +47,28 @@ class OrdenProvider {
   Future<List<Orden>> getByDeliveryAndStatus(String idRepartidor, String status) async {
     try {
       Uri url = Uri.http(_url, '$_api/findByDeliveryAndStatus/$idRepartidor/$status'); //obtiene todos los datos
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers,);
+      if (res.statusCode == 401) {//401 respuesta no autorizada
+        Fluttertoast.showToast(msg: 'Sesión Expirada');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      final data = json.decode(res.body);//se obtiene las categorias
+      Orden orden = Orden.fromJsonList(data);
+      return orden.toList;//retornamos la lista de categorias
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
+  }
+
+  Future<List<Orden>> getByClientAndStatus(String idCliente, String status) async {
+    try {
+      Uri url = Uri.http(_url, '$_api/findByClientAndStatus/$idCliente/$status'); //obtiene todos los datos
       Map<String, String> headers = {
         'Content-type': 'application/json',
         'Authorization': sessionUser.sessionToken
@@ -116,11 +138,34 @@ class OrdenProvider {
     }
   }
 
-  Future<ResponseApi> updateToOnTheWay(Orden orden) async {
-    // Si hay error
+  Future<ResponseApi> updateToOnTheWay(Orden orden) async
+  {
     try {
-      // Si ejecuta bien
       Uri url = Uri.http(_url, '$_api/updateToOnTheWay');
+      String bodyParams = json.encode(orden);
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.put(url, headers: headers, body: bodyParams);
+      if (res.statusCode == 401) {
+        Fluttertoast.showToast(msg: 'Sesión Expirada');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      final data = json.decode(res.body);
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+      return responseApi;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
+  Future<ResponseApi> updateToDelivery(Orden orden) async
+  {
+    try {
+      Uri url = Uri.http(_url, '$_api/updateToDelivery');
       String bodyParams = json.encode(orden);
       Map<String, String> headers = {
         'Content-type': 'application/json',
