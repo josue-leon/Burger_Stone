@@ -66,6 +66,13 @@ class DeliveryOrdersMapController {
     checkGPS();
   }
 
+  void saveLocation() async
+  {
+    orden.latitud = _position.latitude;
+    orden.longitud = _position.longitude;
+    await _ordenProvider.updateLatLng(orden);
+  }
+
   void emitPosition() {
     socket.emit('position', {
       'id_orden': orden.id,
@@ -233,6 +240,8 @@ class DeliveryOrdersMapController {
     try {
       await _determinePosition(); // OBTENER LA POSICION ACTUAL Y TAMBIEN SOLICITAR LOS PERMISOS
       _position = await Geolocator.getLastKnownPosition(); // LAT Y LNG
+      saveLocation();
+
       animateCameraToPosition(_position.latitude, _position.longitude);
       addMarker(
           'repartidor',

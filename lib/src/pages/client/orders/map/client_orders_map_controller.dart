@@ -61,7 +61,17 @@ class ClientOrdersMapController {
     socket.connect();
 
     socket.on('position/${orden.id}', (data) {
-      print(data);
+      print('Data emitida ${data}');
+
+      addMarker(
+          'repartidor',
+          data['latitud'],
+          data['longitud'],
+          'Su repartidor',
+          '',
+          deliveryMarker
+      );
+
     });
 
     usuario = Usuario.fromJson(await _sharedPref.read('usuario'));
@@ -79,52 +89,6 @@ class ClientOrdersMapController {
     );
 
     print ('----------DISTANCIA ${_distanceBetween} ---------------');
-  }
-
-  void launchWaze() async
-  {
-    var url = 'waze://?ll=${orden.direccion.latitud.toString()},${orden.direccion.longitud.toString()}';
-    var fallbackUrl =
-        'https://waze.com/ul?ll=${orden.direccion.latitud.toString()},${orden.direccion.longitud.toString()}&navigate=yes';
-    try {
-      bool launched =
-      await launch(url, forceSafariVC: false, forceWebView: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-    }
-  }
-
-  void launchGoogleMaps() async
-  {
-    var url = 'google.navigation:q=${orden.direccion.latitud.toString()},${orden.direccion.longitud.toString()}';
-    var fallbackUrl =
-        'https://www.google.com/maps/search/?api=1&query=${orden.direccion.latitud.toString()},${orden.direccion.longitud.toString()}';
-    try {
-      bool launched =
-      await launch(url, forceSafariVC: false, forceWebView: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-    }
-  }
-
-  void updateToDelivery() async
-  {
-    if (_distanceBetween <= 200){
-      ResponseApi responseApi = await _ordenProvider.updateToDelivery(orden);
-      if (responseApi.success) {
-        Fluttertoast.showToast(msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-        Navigator.pushNamedAndRemoveUntil(context, 'delivery/orders/list', (route) => false);
-      }
-    }
-    else {
-      MySnackbar.show(context, 'Aún no llega a su destino');
-    }
   }
   
   Future<void> setPolylines(LatLng from, LatLng to) async{
@@ -149,7 +113,6 @@ class ClientOrdersMapController {
     
     polylines.add(polyline);
     refresh();
-
   }
 
   void addMarker (
@@ -226,14 +189,14 @@ class ClientOrdersMapController {
 
   void updateLocation() async {
     try {
-      await _determinePosition(); // OBTENER LA POSICION ACTUAL Y TAMBIEN SOLICITAR LOS PERMISOS
-      _position = await Geolocator.getLastKnownPosition(); // LAT Y LNG
-      animateCameraToPosition(_position.latitude, _position.longitude);
+      await _determinePosition();
+
+      animateCameraToPosition(orden.latitud, orden.longitud);
       addMarker(
           'repartidor',
-          _position.latitude,
-          _position.longitude,
-          'Su posición',
+          orden.latitud,
+          orden.longitud,
+          'Su repartidor',
           '',
           deliveryMarker
       );
@@ -247,7 +210,7 @@ class ClientOrdersMapController {
           homeMarker
       );
 
-      LatLng from = new LatLng(_position.latitude, _position.longitude);
+      LatLng from = new LatLng(orden.latitud, orden.longitud);
       LatLng to = new LatLng(orden.direccion.latitud, orden.direccion.longitud);
 
       setPolylines(from, to);
