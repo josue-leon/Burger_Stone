@@ -4,6 +4,8 @@ import 'package:app_burger_stone/src/pages/client/direccion/map/client_address_m
 import 'package:app_burger_stone/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:app_burger_stone/src/pages/client/orders/list/client_orders_list_page.dart';
 import 'package:app_burger_stone/src/pages/client/orders/map/client_orders_map_page.dart';
+import 'package:app_burger_stone/src/pages/client/payments/create/client_payments_create_page.dart';
+import 'package:app_burger_stone/src/pages/client/payments/cuotas/client_payments_cuotas_page.dart';
 import 'package:app_burger_stone/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:app_burger_stone/src/pages/client/update/client_update_page.dart';
 import 'package:app_burger_stone/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -56,6 +58,8 @@ class _MyAppState extends State<MyApp> {
         'client/address/map': (BuildContext context) => ClientAddressMapPage(),
         'client/orders/list': (BuildContext context) => ClientOrdersListPage(),
         'client/orders/map': (BuildContext context) => ClientOrdersMapPage(),
+        'client/payments/create': (BuildContext context) => ClientPaymentsCreatePage(),
+        'client/payments/cuotas': (BuildContext context) => ClientPaymentsCuotasPage(),
         'restaurant/orders/list': (BuildContext context) => RestaurantOrdersListPage(),
         'restaurant/categorias/create': (BuildContext context) => RestaurantCategoriasCreatePage(),
         'restaurant/products/create': (BuildContext context) => RestaurantProductsCreatePage(),
